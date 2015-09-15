@@ -1,0 +1,1 @@
+include lib/certs/cacert.pem DESCRIPTION.rst
