@@ -9,7 +9,7 @@ Prerequisites
 
 PayPlug's library relies on **python-requests>=1.0.1** to perform HTTP requests and requires **OpenSSL** to secure
 transactions. You also need either a **Python 2** newer than **Python 2.6** or a **Python 3** newer than **Python 3.1**.
-To ensure **Python 2** and **Python 3** compatibility, this library also depends on **six>=1.7.0**.
+To ensure **Python 2** and **Python 3** compatibility, this library also depends on **six>=1.4.0**.
 
 Installation
 ------------
