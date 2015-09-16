@@ -22,15 +22,19 @@ Installation
     $ pip install payplug
 
 
-or simply add `payplug` as a dependency of your project.
+or simply add *payplug* as a dependency of your project.
 
 **Option 2)** download as a tarball:
 
 - Download the most recent stable tarball from the `download page`__
 - Extract the tarball
-- Put the files somewhere outside your project
-- Run `$ pip install --upgrade setuptools`
-- Run `$ python setup.py install`
+- Put the files somewhere outside your project and *chdir* into it.
+- Run the following commands:
+
+.. code-block:: bash
+
+    $ pip install --upgrade setuptools
+    $ python setup.py install
 
 __ https://bitbucket.org/payplug/payplug_python/downloads#tag-downloads
 
@@ -85,7 +89,7 @@ To run the tests for your specific configuration, run the following commands:
     $ pip install --upgrade setuptools pbr
     $ python setup.py test
 
-To run the tests under different configuration, you can use tox. It's recommended to use `pyenv` project to install
+To run the tests under different configuration, you can use tox. It's recommended to use *pyenv* project to install
 different python versions on the same system.
 
 .. code-block:: bash
@@ -93,7 +97,7 @@ different python versions on the same system.
     $ pip install tox
     $ tox
 
-You can also use `detox` to make the process even faster.
+You can also use *detox* to make the process even faster.
 
 .. code-block:: bash
 
