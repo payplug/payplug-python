@@ -27,8 +27,8 @@ or simply add *payplug* as a dependency of your project.
 **Option 2)** download as a tarball:
 
 - Download the most recent stable tarball from the `download page`__
-- Extract the tarball
-- Put the files somewhere outside your project and *chdir* into it.
+- Extract the tarball somewhere outside your project.
+- *chdir* into the folder you've just extracted.
 - Run the following commands:
 
 .. code-block:: bash
