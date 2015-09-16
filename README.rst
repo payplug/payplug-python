@@ -34,14 +34,6 @@ or simply add `payplug` as a dependency of your project.
 
 __ https://bitbucket.org/payplug/payplug_python/downloads#tag-downloads
 
-**Option 3 - Strongly discouraged)** download as a tarball:
-
-- Download the most recent stable tarball from the `download page`__
-- Extract the tarball inside your project
-- Manually install the dependencies `$ pip install requests six` inside your environment.
-
-__ https://bitbucket.org/payplug/payplug_python/downloads#tag-downloads
-
 To get started, add the following piece of code to the header of your Python project:
 
 .. sourcecode :: python
