@@ -1,7 +1,7 @@
 Welcome to PayPlug e-commerce library's documentation!
 ======================================================
 
-This is the documentation of PayPlug's e-commerce Python library. It is designed to help developers to use PayPlug as
+This is the documentation of PayPlug's Python library. It is designed to help developers to use PayPlug as
 payment solution in a simple, yet robust way.
 
 Prerequisites
@@ -32,11 +32,11 @@ or simply add `payplug` as a dependency of your project.
 - Run `$ pip install --upgrade setuptools`
 - Run `$ python setup.py install`
 
-__ https://bitbucket.org/payplug/payplug_python/downloads#tag-downloads
+__ https://github.com/payplug/payplug-python/releases
 
 To get started, add the following piece of code to the header of your Python project:
 
-.. sourcecode :: python
+.. sourcecode:: python
 
     import payplug
 
@@ -73,6 +73,7 @@ Go further:
 -----------
 Documentation:
 ++++++++++++++
+
 https://www.payplug.com/docs/api/?python
 
 Tests:

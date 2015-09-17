@@ -45,12 +45,9 @@ setup(
     version=version,
     description='PayPlug payment solution',
     long_description=long_description,
-    url='https://github.com/payplug/payplug-python',  # FIXME
-    author='PayPlug Team',
-    author_email='admin@payplug.com',  # FIXME
-    license='Free To Use But Restricted',  # FIXME
+    url='https://github.com/payplug/payplug-python/releases',
+    author='PayPlug',
     classifiers=[
-        # FIXME https://pypi.python.org/pypi?%3Aaction=list_classifiers
         'Development Status :: 5 - Production/Stable',
 
         'Intended Audience :: Developers',
@@ -59,7 +56,7 @@ setup(
 
         "Operating System :: OS Independent",
 
-        'License :: Free To Use But Restricted',
+        'License :: OSI Approved :: MIT License',
 
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.6',
@@ -73,7 +70,7 @@ setup(
         'Programming Language :: Python :: Implementation :: PyPy'
     ],
 
-    keywords='payplug payment integration api',  # FIXME
+    keywords='payplug payment integration api',
 
     packages=find_packages(exclude=['test*']),
 

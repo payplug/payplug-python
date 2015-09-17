@@ -45,7 +45,7 @@ class Payment(object):
         :rtype: resources.Payment
         """
         http_client = HttpClient()
-        response, _ = http_client.get(routes.url(routes.RETRIEVE_PAYMENT, payment_id=payment_id))
+        response, __ = http_client.get(routes.url(routes.RETRIEVE_PAYMENT, payment_id=payment_id))
         return resources.Payment(**response)
 
     @staticmethod

@@ -123,6 +123,7 @@ class BadRequest(HttpError):
     MESSAGE = 'Bad request.'
     pass
 
+
 class Unauthorized(HttpError):
     """
     HTTP Error 401
