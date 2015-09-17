@@ -47,6 +47,7 @@ setup(
     long_description=long_description,
     url='https://github.com/payplug/payplug-python/releases',
     author='PayPlug',
+    author_email='support@payplug.com',
     classifiers=[
         'Development Status :: 5 - Production/Stable',
 
