@@ -81,7 +81,7 @@ class HttpError(PayplugError):
     @property
     def http_response_code(self):
         """
-        :return: The HTTP code returned in response.
+        :return The HTTP code returned in response.
         :rtype int
         """
         return self._http_response_code
@@ -91,7 +91,7 @@ class HttpError(PayplugError):
         """
         Try to parse the HTTP response as JSON and return the decoded object.
 
-        :return: The parsed JSON data or None if it's not valid JSON
+        :return The parsed JSON data or None if it's not valid JSON
         """
         try:
             return json.loads(self._http_response)
@@ -100,6 +100,15 @@ class HttpError(PayplugError):
 
     @staticmethod
     def map_http_status_to_exception(http_code):
+        """
+        Bind a HTTP status to an HttpError.
+
+        :param http_code: The HTTP code
+        :type http_code: int
+
+        :return The HttpError that fits to the http_code or HttpError.
+        :rtype Any subclass of HttpError or HttpError
+        """
         http_exceptions = HttpError.__subclasses__()
         for http_exception in http_exceptions:
             http_statuses = http_exception.HTTP_STATUSES
