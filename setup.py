@@ -72,10 +72,9 @@ setup(
 
     keywords='payplug payment integration api',
 
-    packages=find_packages(exclude=['test*']),
+    packages=find_packages(exclude=['*.test*']),
 
-    # FIXME https://packaging.python.org/en/latest/requirements.html
-    install_requires=['requests>=1.0.1', 'six>=1.4.0'],
+    install_requires=['requests>=1.0.1,<3.0', 'six>=1.4.0'],
     tests_require=['pytest>=2.7.0', 'mock>=1.0.1', 'six>=1.7.0'],
 
     # If there are data files included in your packages that need to be
