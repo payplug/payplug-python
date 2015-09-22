@@ -15,6 +15,7 @@ class TestRoutes(TestBase):
 
     def test_url_with_format(self):
         assert routes.url('/foo/{val}', val='bar') == 'http://payplug.com/v1/foo/bar'
+        assert routes.url('/payments/{payment_id}', payment_id='112358') == 'http://payplug.com/v1/payments/112358'
 
     def test_url_with_format_and_paginator(self):
         url = routes.url('/foo/{val}', pagination={'page': 2, 'per_page': 20}, val='bar')
