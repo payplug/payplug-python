@@ -114,7 +114,7 @@ class UrllibRequest(HttpRequest):
         request.get_method = lambda: http_verb
 
         try:
-            response = urllib.request.urlopen(request, cafile=config.CACERT_PATH)
+            response = urllib.request.urlopen(request)
         except urllib.error.HTTPError as response_:
             response = response_
         except urllib.error.URLError as exception:
