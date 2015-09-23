@@ -4,6 +4,7 @@ from six.moves.urllib.parse import urlencode
 # Payments routes
 CREATE_PAYMENT = '/payments'
 RETRIEVE_PAYMENT = '/payments/{payment_id}'
+ABORT_PAYMENT = '/payments/{payment_id}'
 LIST_PAYMENTS = '/payments'
 
 # Refunds routes

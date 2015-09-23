@@ -49,6 +49,21 @@ class Payment(object):
         return resources.Payment(**response)
 
     @staticmethod
+    def abort(payment_id):
+        """
+        Abort a payment from its id.
+
+        :param payment_id: The payment id
+        :type payment_id: string
+
+        :return: The payment resource
+        :rtype: resources.Payment
+        """
+        http_client = HttpClient()
+        response, __ = http_client.patch(routes.url(routes.ABORT_PAYMENT, payment_id=payment_id), {'abort': True})
+        return resources.Payment(**response)
+
+    @staticmethod
     def create(**data):
         """
         Create a Payment request.

@@ -27,7 +27,7 @@ class PyTest(test):
 
     def initialize_options(self):
         test.initialize_options(self)
-        self.pytest_args = []
+        self.pytest_args = ['payplug']
 
     def finalize_options(self):
         test.finalize_options(self)

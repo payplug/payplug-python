@@ -9,18 +9,27 @@ from payplug.test import TestBase
 class TestPaymentCreateRetrieve(TestBase):
     @classmethod
     def setup_class(cls):
-        cls.patcher_post = patch.object(payplug.HttpClient, 'post', return_value=({'id': 'pay_payment_id'}, 200))
+        cls.patcher_post = patch.object(payplug.HttpClient, 'post', return_value=({'id': 'pay_payment_id'}, 201))
+        cls.patcher_patch = patch.object(payplug.HttpClient, 'patch', return_value=({'id': 'pay_payment_id'}, 200))
         cls.patcher_get = patch.object(payplug.HttpClient, 'get', return_value=({'id': 'pay_payment_id'}, 200))
         cls.patcher_post.start()
+        cls.patcher_patch.start()
         cls.patcher_get.start()
 
     @classmethod
     def teardown_class(cls):
         cls.patcher_post.stop()
+        cls.patcher_patch.stop()
         cls.patcher_get.stop()
 
     def test_retrieve(self):
         payment = payplug.Payment.retrieve('pay_payment_id')
+
+        assert isinstance(payment, resources.Payment)
+        assert payment.id == 'pay_payment_id'
+
+    def test_abort(self):
+        payment = payplug.Payment.abort('pay_payment_id')
 
         assert isinstance(payment, resources.Payment)
         assert payment.id == 'pay_payment_id'
