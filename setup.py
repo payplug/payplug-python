@@ -14,7 +14,6 @@ with io.open(path.join(current_path, 'DESCRIPTION.rst'), encoding='utf-8') as f:
     long_description = f.read()
 
 __version__ = 'unknown'
-version_matcher = re.compile('^__version__\s?=\s?[\'"](.*)[\'"]$')
 with io.open(path.join(current_path, 'payplug', '__version__.py'), encoding='utf-8') as f:
     for line in f:
         if not line.startswith('#'):
