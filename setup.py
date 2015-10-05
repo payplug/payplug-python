@@ -3,7 +3,6 @@ PayPlug python library setup tool.
 """
 import sys
 import io
-import re
 from os import path
 
 from setuptools import setup, find_packages
