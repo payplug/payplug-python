@@ -19,6 +19,7 @@ class TestPaymentResource(TestBase):
             "is_paid": True,
             "is_refunded": False,
             "is_3ds": False,
+            "save_card": False,
             "card": {
                 "last4": "1800",
                 "country": "FR",
@@ -67,6 +68,7 @@ class TestPaymentResource(TestBase):
         assert payment.is_paid is True
         assert payment.is_refunded is False
         assert payment.is_3ds is False
+        assert payment.save_card is False
 
         assert type(payment.card) == Payment.Card
         assert payment.card.last4 == "1800"

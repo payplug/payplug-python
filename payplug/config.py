@@ -13,8 +13,7 @@ payplug.config.cacert_path:
 """
 import os
 
-VERSION = '1.0.0'
-CACERT_PATH = os.path.join(os.path.dirname(__file__), 'certs/cacert.pem')
+CACERT_PATH = os.path.join(os.path.dirname(__file__), 'certs', 'cacert.pem')
 
 secret_key = None
 

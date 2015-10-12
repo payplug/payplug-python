@@ -114,7 +114,7 @@ class UrllibRequest(HttpRequest):
         request.get_method = lambda: http_verb
 
         try:
-            response = urllib.request.urlopen(request, cafile=config.CACERT_PATH)
+            response = urllib.request.urlopen(request)
         except urllib.error.HTTPError as response_:
             response = response_
         except urllib.error.URLError as exception:
@@ -192,6 +192,25 @@ class HttpClient(object):
             exception.ClientError on unexpected error
         """
         return self._request('POST', url, data)
+
+    def patch(self, url, data=None):
+        """
+        Send an authenticated PATCH request to the API.
+
+        :param url: url to the remote resource
+        :type url: string
+        :param data: request data
+        :type data: dict|None
+
+        :return: http response, http status
+        :rtype tuple(string, int)
+
+
+        :raises
+            exception.HttpError when http request returned bad HTTP status (≠ 2xx).
+            exception.ClientError on unexpected error
+        """
+        return self._request('PATCH', url, data)
 
     def get(self, url):
         """

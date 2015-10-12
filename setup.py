@@ -3,7 +3,6 @@ PayPlug python library setup tool.
 """
 import sys
 import io
-import re
 from os import path
 
 from setuptools import setup, find_packages
@@ -13,13 +12,11 @@ current_path = path.abspath(path.dirname(__file__))
 with io.open(path.join(current_path, 'DESCRIPTION.rst'), encoding='utf-8') as f:
     long_description = f.read()
 
-version = 'unknown'
-version_matcher = re.compile('^__version__\s?=\s?[\'"](.*)[\'"]$')
+__version__ = 'unknown'
 with io.open(path.join(current_path, 'payplug', '__version__.py'), encoding='utf-8') as f:
     for line in f:
-        result = version_matcher.match(line)
-        if result:
-            version = result.group(1)
+        if not line.startswith('#'):
+            exec(line)
 
 
 class PyTest(test):
@@ -27,7 +24,7 @@ class PyTest(test):
 
     def initialize_options(self):
         test.initialize_options(self)
-        self.pytest_args = []
+        self.pytest_args = ['payplug']
 
     def finalize_options(self):
         test.finalize_options(self)
@@ -42,7 +39,7 @@ class PyTest(test):
 
 setup(
     name='payplug',
-    version=version,
+    version=__version__,
     description='PayPlug payment solution',
     long_description=long_description,
     url='https://github.com/payplug/payplug-python/releases',

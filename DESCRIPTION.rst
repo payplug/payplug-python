@@ -14,10 +14,10 @@ Or via easy_install:
 
     $ easy_install payplug --upgrade
 
-Create a PayPlug's Account
---------------------------
+Create a PayPlug Account
+------------------------
 
-Sign up for PayPlug account at : https://www.payplug.com/portal2/signup
+Sign up for a PayPlug account at : https://www.payplug.com/portal2/signup
 
 Using PayPlug API
 -----------------

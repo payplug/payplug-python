@@ -31,7 +31,7 @@ def set_secret_key(token):
 
 class Payment(object):
     """
-    A DAO for resources.Payment which provides an cromulent way to query payment resources.
+    A DAO for resources.Payment which provides a cromulent way to query payment resources.
     """
     @staticmethod
     def retrieve(payment_id):
@@ -46,6 +46,21 @@ class Payment(object):
         """
         http_client = HttpClient()
         response, __ = http_client.get(routes.url(routes.RETRIEVE_PAYMENT, payment_id=payment_id))
+        return resources.Payment(**response)
+
+    @staticmethod
+    def abort(payment_id):
+        """
+        Abort a payment from its id.
+
+        :param payment_id: The payment id
+        :type payment_id: string
+
+        :return: The payment resource
+        :rtype: resources.Payment
+        """
+        http_client = HttpClient()
+        response, __ = http_client.patch(routes.url(routes.ABORT_PAYMENT, payment_id=payment_id), {'abort': True})
         return resources.Payment(**response)
 
     @staticmethod
@@ -88,7 +103,7 @@ class Payment(object):
 
 class Refund(object):
     """
-    A DAO for resources.Refund which provides an cromulent way to query refund resources.
+    A DAO for resources.Refund which provides a cromulent way to query refund resources.
     """
     @staticmethod
     def retrieve(payment, refund_id):
