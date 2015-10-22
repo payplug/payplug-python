@@ -7,6 +7,7 @@ import sys
 from payplug import network
 from payplug.test import TestBase
 
+
 @pytest.mark.xfail(sys.version_info < (2, 7, 9), reason="Can't set ca_file easily with urllib.")
 class TestUrllibRequest(TestBase):
     @pytest.fixture(scope='class')
