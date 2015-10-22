@@ -41,7 +41,7 @@ class TestUrllibRequest(TestBase):
             response = request.do_request('GET', 'http://example.com', {}, {'some': 'data'})
 
         urllib_request_mock.assert_called_once_with('http://example.com', '{"some":"data"}', {})
-        urllib_urlopen_200_fixture.assert_called_once_with(urllib_request_object_mock, cafile='cacert_path')
+        urllib_urlopen_200_fixture.assert_called_once_with(urllib_request_object_mock)
 
         assert ('OK', 200, {'header': 'header_value'}) == response
 

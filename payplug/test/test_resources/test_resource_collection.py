@@ -68,3 +68,16 @@ class TestAPIResourceCollection(TestBase):
         resource = APIResourceCollection(Payment, **api_response)
         for payment in iter(resource):
             assert isinstance(payment, Payment)
+
+    def test_get_item(self, api_response):
+        resource = APIResourceCollection(Payment, **api_response)
+
+        assert resource[0].id == "pay_5iHMDxy4ABR4YBVW4UscIn"
+        assert resource[0].object == "payment"
+        assert resource[0].is_live is True
+        assert resource[0].amount == 3300
+
+        assert resource[1].id == "pay_3uFHHU3949uUF2A98s0CqE"
+        assert resource[1].object == "payment"
+        assert resource[1].is_live is False
+        assert resource[1].amount == 44012

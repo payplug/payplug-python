@@ -263,5 +263,7 @@ class APIResourceCollection(APIResource):
 
     def next(self):
         return next(self._iterator)
-
     __next__ = next  # Python 3 compatibility
+
+    def __getitem__(self, item):
+        return self.data[item]
