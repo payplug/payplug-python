@@ -45,7 +45,7 @@ class Payment(object):
         :rtype: resources.Payment
         """
         http_client = HttpClient()
-        response, __ = http_client.get(routes.url(routes.RETRIEVE_PAYMENT, payment_id=payment_id))
+        response, __ = http_client.get(routes.url(routes.PAYMENT_RESOURCE, resource_id=payment_id))
         return resources.Payment(**response)
 
     @staticmethod
@@ -60,7 +60,7 @@ class Payment(object):
         :rtype: resources.Payment
         """
         http_client = HttpClient()
-        response, __ = http_client.patch(routes.url(routes.ABORT_PAYMENT, payment_id=payment_id), {'abort': True})
+        response, __ = http_client.patch(routes.url(routes.PAYMENT_RESOURCE, resource_id=payment_id), {'abort': True})
         return resources.Payment(**response)
 
     @staticmethod
@@ -74,7 +74,7 @@ class Payment(object):
         :rtype resources.Payment
         """
         http_client = HttpClient()
-        response, _ = http_client.post(routes.url(routes.CREATE_PAYMENT), data)
+        response, _ = http_client.post(routes.url(routes.PAYMENT_RESOURCE), data)
         return resources.Payment(**response)
 
     @staticmethod
@@ -97,7 +97,7 @@ class Payment(object):
         pagination = dict((key, value) for (key, value) in [('page', page), ('per_page', per_page)] if value)
 
         http_client = HttpClient()
-        response, _ = http_client.get(routes.url(routes.LIST_PAYMENTS, pagination))
+        response, _ = http_client.get(routes.url(routes.PAYMENT_RESOURCE, pagination=pagination))
         return resources.APIResourceCollection(resources.Payment, **response)
 
 
@@ -122,7 +122,7 @@ class Refund(object):
             payment = payment.id
 
         http_client = HttpClient()
-        response, _ = http_client.get(routes.url(routes.RETRIEVE_REFUND, payment_id=payment, refund_id=refund_id))
+        response, _ = http_client.get(routes.url(routes.REFUND_RESOURCE, resource_id=refund_id, payment_id=payment))
         return resources.Refund(**response)
 
     @staticmethod
@@ -141,7 +141,7 @@ class Refund(object):
             payment = payment.id
 
         http_client = HttpClient()
-        response, _ = http_client.post(routes.url(routes.CREATE_REFUND, payment_id=payment), data)
+        response, _ = http_client.post(routes.url(routes.REFUND_RESOURCE, payment_id=payment), data)
         return resources.Refund(**response)
 
     @staticmethod
@@ -159,5 +159,5 @@ class Refund(object):
             payment = payment.id
 
         http_client = HttpClient()
-        response, _ = http_client.get(routes.url(routes.LIST_REFUNDS, payment_id=payment))
+        response, _ = http_client.get(routes.url(routes.REFUND_RESOURCE, payment_id=payment))
         return resources.APIResourceCollection(resources.Refund, **response)

@@ -67,22 +67,22 @@ class TestPaymentList(TestBase):
     @patch('payplug.routes.url')
     def test_list_pagination_no_arguments(self, url_mock):
         payplug.Payment.list()
-        assert url_mock.call_args[0][1] == {}
+        assert url_mock.call_args[1]['pagination'] == {}
 
     @patch('payplug.routes.url')
     def test_list_pagination_page_argument(self, url_mock):
         payplug.Payment.list(page=1)
-        assert url_mock.call_args[0][1] == {'page': 1}
+        assert url_mock.call_args[1]['pagination'] == {'page': 1}
 
     @patch('payplug.routes.url')
     def test_list_pagination_per_page_argument(self, url_mock):
         payplug.Payment.list(per_page=1)
-        assert url_mock.call_args[0][1] == {'per_page': 1}
+        assert url_mock.call_args[1]['pagination'] == {'per_page': 1}
 
     @patch('payplug.routes.url')
     def test_list_pagination_page_and_per_page_arguments(self, url_mock):
         payplug.Payment.list(page=42, per_page=1)
-        assert url_mock.call_args[0][1] == {'page': 42, 'per_page': 1}
+        assert url_mock.call_args[1]['pagination'] == {'page': 42, 'per_page': 1}
 
     def test_list(self):
         payments = payplug.Payment.list()

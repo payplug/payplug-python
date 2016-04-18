@@ -160,7 +160,7 @@ class Payment(APIResource, VerifiableAPIResource, ReconstituableAPIResource):
         :rtype Payment
         """
         http_client = HttpClient()
-        response, _ = http_client.get(routes.url(routes.RETRIEVE_PAYMENT, payment_id=self.id))
+        response, _ = http_client.get(routes.url(routes.PAYMENT_RESOURCE, resource_id=self.id))
         return Payment(**response)
 
     def refund(self, **data):
@@ -176,7 +176,7 @@ class Payment(APIResource, VerifiableAPIResource, ReconstituableAPIResource):
 
     def list_refunds(self):
         """
-        List the refund of a payment.
+        List the refunds of a payment.
 
         :return The refunds iterable object
         :rtype APIResourceCollection
@@ -226,8 +226,24 @@ class Refund(APIResource, VerifiableAPIResource, ReconstituableAPIResource):
         :rtype Refund
         """
         http_client = HttpClient()
-        response, _ = http_client.get(routes.url(routes.RETRIEVE_REFUND, payment_id=self.payment_id, refund_id=self.id))
+        response, _ = http_client.get(
+            routes.url(routes.REFUND_RESOURCE, resource_id=self.id, payment_id=self.payment_id)
+        )
         return Refund(**response)
+
+
+class Customer(APIResource, ReconstituableAPIResource):
+    """
+    A Customer Resource.
+    """
+    object_type = 'customer'
+
+
+class Card(APIResource, ReconstituableAPIResource):
+    """
+    A Customer Resource.
+    """
+    object_type = 'card'
 
 
 class APIResourceCollection(APIResource):

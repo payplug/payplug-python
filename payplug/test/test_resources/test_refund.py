@@ -54,12 +54,13 @@ class TestConsistentRefund(TestBase):
 
     @patch('payplug.resources.routes.url')
     def test_get_consistent_resource(self, routes_url_mock):
-        unsafe_refund = Refund(id='re_5iHMDxy4ABR4YBVW4UscIn_unsafe', payment_id='pay_3fJie31HD5eF3dAjdI3903_unsafe',
+        unsafe_refund = Refund(id='re_5iHMDxy4ABR4YBVW4UscIn_unsafe',
+                               payment_id='pay_3fJie31HD5eF3dAjdI3903_unsafe',
                                object='refund')
         safe_refund = unsafe_refund.get_consistent_resource()
 
         assert isinstance(safe_refund, Refund)
-        assert routes_url_mock.call_args[1]['refund_id'] == 're_5iHMDxy4ABR4YBVW4UscIn_unsafe'
+        assert routes_url_mock.call_args[1]['resource_id'] == 're_5iHMDxy4ABR4YBVW4UscIn_unsafe'
         assert routes_url_mock.call_args[1]['payment_id'] == 'pay_3fJie31HD5eF3dAjdI3903_unsafe'
         assert safe_refund.id == 're_5iHMDxy4ABR4YBVW4UscIn'
         assert safe_refund.payment_id == 'pay_3fJie31HD5eF3dAjdI3903'

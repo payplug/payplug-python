@@ -16,5 +16,3 @@ import os
 CACERT_PATH = os.path.join(os.path.dirname(__file__), 'certs', 'cacert.pem')
 
 secret_key = None
-
-
