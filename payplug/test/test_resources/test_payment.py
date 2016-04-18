@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import pytest
 from mock import patch
 import payplug
 from payplug.resources import Payment
@@ -116,22 +117,24 @@ class TestPaymentResource(TestBase):
         payment.list_refunds()
         refund_list_mock.assert_called_once_with(payment)
 
+    @patch('payplug.resources.payplug.Payment.abort')
+    def test_abort_payment(self, payment_abort_mock):
+        payment = Payment(id='pay_5iHMDxy4ABR4YBVW4UscIn')
+        payment.abort()
+        payment_abort_mock.assert_called_once_with(payment)
+
+
+@pytest.fixture
+def payment_fixture():
+    return {
+        "id": "pay_5iHMDxy4ABR4YBVW4UscIn",
+        "object": "payment",
+    }
+
 
 @patch('payplug.config.secret_key', 'a_secret_key')
+@patch.object(payplug.HttpClient, 'get', lambda *args, **kwargs: (payment_fixture(), 200))
 class TestConsistentPayment(TestBase):
-    @classmethod
-    def setup_class(cls):
-        api_response = {
-            "id": "pay_5iHMDxy4ABR4YBVW4UscIn",
-            "object": "payment",
-        }
-        cls.patcher_get = patch.object(payplug.HttpClient, 'get', return_value=(api_response, 200))
-        cls.patcher_get.start()
-
-    @classmethod
-    def teardown_class(cls):
-        cls.patcher_get.stop()
-
     @patch('payplug.resources.routes.url')
     def test_get_consistent_resource(self, routes_url_mock):
         unsafe_payment = Payment(id='pay_5iHMDxy4ABR4YBVW4UscIn_unsafe', object='payment')

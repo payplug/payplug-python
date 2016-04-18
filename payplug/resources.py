@@ -183,6 +183,15 @@ class Payment(APIResource, VerifiableAPIResource, ReconstituableAPIResource):
         """
         return payplug.Refund.list(self)
 
+    def abort(self):
+        """
+        Abort a payment.
+
+        :return The aborted payment object
+        :rtype Payment
+        """
+        return payplug.Payment.abort(self)
+
     class Card(APIResource):
         """
         A credit card.
@@ -238,12 +247,56 @@ class Customer(APIResource, ReconstituableAPIResource):
     """
     object_type = 'customer'
 
+    def update(self, **data):
+        """
+        Update a customer.
+
+        :param data: the data to update.
+        """
+        return payplug.Customer.update(self, **data)
+
+    def delete(self):
+        """
+        Delete the customer.
+        """
+        payplug.Customer.delete(self)
+
+    def add_card(self, **data):
+        """
+        Add a card to the customer.
+
+        :param data: The card data
+        :return: The new card object
+        :rtype Card
+        """
+        return payplug.Card.create(self, **data)
+
+    def list_cards(self, *args, **kwargs):
+        """
+        List the cards of the customer.
+
+        :param page: the page number
+        :type page: int|None
+        :param per_page: number of customers per page. It's a good practice to increase this number if you know that you
+        will need a lot of payments.
+        :type per_page: int|None
+        :return: The cards of the customer
+        :rtype APIResourceCollection
+        """
+        return payplug.Card.list(self, *args, **kwargs)
+
 
 class Card(APIResource, ReconstituableAPIResource):
     """
-    A Customer Resource.
+    A Card Resource.
     """
     object_type = 'card'
+
+    def delete(self):
+        """
+        Delete the card.
+        """
+        payplug.Card.delete(self)
 
 
 class APIResourceCollection(APIResource):

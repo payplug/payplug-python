@@ -44,3 +44,21 @@ class TestCustomerResource(TestBase):
         assert isinstance(customer.metadata, dict)
         assert customer.metadata["customer_id"] == 42710
         assert customer.metadata["customer_name"] == "Jean"
+
+    @patch('payplug.resources.payplug.Customer.update')
+    def test_update_payment(self, customer_update_mock):
+        customer = Customer(id='cus_customer1')
+        customer.update(da='ta')
+        customer_update_mock.assert_called_once_with(customer, da='ta')
+
+    @patch('payplug.resources.payplug.Card.create')
+    def test_add_card(self, card_create_mock):
+        customer = Customer(id='cus_customer1')
+        customer.add_card(some='data')
+        card_create_mock.assert_called_once_with(customer, some='data')
+
+    @patch('payplug.resources.payplug.Card.list')
+    def test_list_cards(self, card_list_mock):
+        customer = Customer(id='cus_customer1')
+        customer.list_cards(per_page=10, page=0)
+        card_list_mock.assert_called_once_with(customer, per_page=10, page=0)

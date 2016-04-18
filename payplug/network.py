@@ -212,6 +212,25 @@ class HttpClient(object):
         """
         return self._request('PATCH', url, data)
 
+    def delete(self, url, data=None):
+        """
+        Send an authenticated DELETE request to the API.
+
+        :param url: url to the remote resource
+        :type url: string
+        :param data: request data
+        :type data: dict|None
+
+        :return: http response, http status
+        :rtype tuple(string, int)
+
+
+        :raises
+            exception.HttpError when http request returned bad HTTP status (≠ 2xx).
+            exception.ClientError on unexpected error
+        """
+        return self._request('DELETE', url, data)
+
     def get(self, url):
         """
         Send an authenticated GET request to the API.
