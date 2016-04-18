@@ -31,7 +31,7 @@ def set_secret_key(token):
 
 class Payment(object):
     """
-    A DAO for resources.Payment which provides a cromulent way to query payment resources.
+    A DAO for resources.Payment which provides a way to query payment resources.
     """
     @staticmethod
     def retrieve(payment_id):
@@ -49,18 +49,21 @@ class Payment(object):
         return resources.Payment(**response)
 
     @staticmethod
-    def abort(payment_id):
+    def abort(payment):
         """
         Abort a payment from its id.
 
-        :param payment_id: The payment id
-        :type payment_id: string
+        :param payment: The payment id or payment object
+        :type payment: string|Payment
 
         :return: The payment resource
         :rtype: resources.Payment
         """
+        if isinstance(payment, resources.Payment):
+            payment = payment.id
+
         http_client = HttpClient()
-        response, __ = http_client.patch(routes.url(routes.PAYMENT_RESOURCE, resource_id=payment_id), {'abort': True})
+        response, __ = http_client.patch(routes.url(routes.PAYMENT_RESOURCE, resource_id=payment), {'abort': True})
         return resources.Payment(**response)
 
     @staticmethod
@@ -103,7 +106,7 @@ class Payment(object):
 
 class Refund(object):
     """
-    A DAO for resources.Refund which provides a cromulent way to query refund resources.
+    A DAO for resources.Refund which provides a way to query refund resources.
     """
     @staticmethod
     def retrieve(payment, refund_id):
@@ -161,3 +164,183 @@ class Refund(object):
         http_client = HttpClient()
         response, _ = http_client.get(routes.url(routes.REFUND_RESOURCE, payment_id=payment))
         return resources.APIResourceCollection(resources.Refund, **response)
+
+
+class Customer(object):
+    """
+    A DAO for resources.Customer which provides a way to query customer resources.
+    """
+    @staticmethod
+    def retrieve(customer_id):
+        """
+        Retrieve a customer from its id.
+
+        :param customer_id: The customer id
+        :type customer_id: string
+
+        :return: The customer resource
+        :rtype: resources.Customer
+        """
+        http_client = HttpClient()
+        response, __ = http_client.get(routes.url(routes.CUSTOMER_RESOURCE, resource_id=customer_id))
+        return resources.Customer(**response)
+
+    @staticmethod
+    def delete(customer):
+        """
+        Delete a customer from its id.
+
+        :param customer: The customer id or object
+        :type customer: string|Customer
+        """
+        if isinstance(customer, resources.Customer):
+            customer = customer.id
+
+        http_client = HttpClient()
+        http_client.delete(routes.url(routes.CUSTOMER_RESOURCE, resource_id=customer))
+
+    @staticmethod
+    def update(customer, **data):
+        """
+        Update a customer from its id.
+
+        :param customer: The customer id or object
+        :type customer: string|Customer
+        :param data: The data you want to update
+
+        :return: The customer resource
+        :rtype resources.Customer
+        """
+        if isinstance(customer, resources.Customer):
+            customer = customer.id
+
+        http_client = HttpClient()
+        response, _ = http_client.patch(routes.url(routes.CUSTOMER_RESOURCE, resource_id=customer), data)
+        return resources.Customer(**response)
+
+    @staticmethod
+    def create(**data):
+        """
+        Create a customer.
+
+        :param data: data required to create the customer
+
+        :return: The customer resource
+        :rtype resources.Customer
+        """
+        http_client = HttpClient()
+        response, _ = http_client.post(routes.url(routes.CUSTOMER_RESOURCE), data)
+        return resources.Customer(**response)
+
+    @staticmethod
+    def list(per_page=None, page=None):
+        """
+        List of customers. You have to handle pagination manually for the moment.
+
+        :param page: the page number
+        :type page: int|None
+        :param per_page: number of customers per page. It's a good practice to increase this number if you know that you
+        will need a lot of payments.
+        :type per_page: int|None
+
+        :return A collection of customers
+        :rtype resources.APIResourceCollection
+        """
+        # Comprehension dict are not supported in Python 2.6-. You can use this commented line instead of the current
+        # line when you drop support for Python 2.6.
+        # pagination = {key: value for (key, value) in [('page', page), ('per_page', per_page)] if value}
+        pagination = dict((key, value) for (key, value) in [('page', page), ('per_page', per_page)] if value)
+
+        http_client = HttpClient()
+        response, _ = http_client.get(routes.url(routes.CUSTOMER_RESOURCE, pagination=pagination))
+        return resources.APIResourceCollection(resources.Customer, **response)
+
+
+class Card(object):
+    """
+    A DAO for resources.Card which provides a way to query customer resources.
+    """
+    @staticmethod
+    def retrieve(customer, card_id):
+        """
+        Retrieve a card from its id.
+
+        :param customer: The customer id or object
+        :type customer: string|Customer
+        :param card_id: The card id
+        :type card_id: string
+
+        :return: The customer resource
+        :rtype: resources.Card
+        """
+        if isinstance(customer, resources.Customer):
+            customer = customer.id
+
+        http_client = HttpClient()
+        response, __ = http_client.get(routes.url(routes.CARD_RESOURCE, resource_id=card_id, customer_id=customer))
+        return resources.Card(**response)
+
+    @staticmethod
+    def delete(customer, card):
+        """
+        Delete a card from its id.
+
+        :param customer: The customer id or object
+        :type customer: string|Customer
+        :param card: The card id or object
+        :type card: string|Card
+        """
+        if isinstance(customer, resources.Customer):
+            customer = customer.id
+        if isinstance(card, resources.Card):
+            card = card.id
+
+        http_client = HttpClient()
+        http_client.delete(routes.url(routes.CARD_RESOURCE, resource_id=card, customer_id=customer))
+
+    @staticmethod
+    def create(customer, **data):
+        """
+        Create a card instance.
+
+        :param customer: the customer id or object
+        :type customer: string|Customer
+        :param data: data required to create the card
+
+        :return: The card resource
+        :rtype resources.Card
+        """
+        if isinstance(customer, resources.Customer):
+            customer = customer.id
+
+        http_client = HttpClient()
+        response, _ = http_client.post(routes.url(routes.CARD_RESOURCE, customer_id=customer), data)
+        return resources.Card(**response)
+
+    @staticmethod
+    def list(customer, per_page=None, page=None):
+        """
+        List of cards. You have to handle pagination manually for the moment.
+
+        :param customer: the customer id or object
+        :type customer: string|Customer
+        :param page: the page number
+        :type page: int|None
+        :param per_page: number of customers per page. It's a good practice to increase this number if you know that you
+        will need a lot of payments.
+        :type per_page: int|None
+
+        :return A collection of cards
+        :rtype resources.APIResourceCollection
+        """
+        if isinstance(customer, resources.Customer):
+            customer = customer.id
+
+        # Comprehension dict are not supported in Python 2.6-. You can use this commented line instead of the current
+        # line when you drop support for Python 2.6.
+        # pagination = {key: value for (key, value) in [('page', page), ('per_page', per_page)] if value}
+        pagination = dict((key, value) for (key, value) in [('page', page), ('per_page', per_page)] if value)
+
+        http_client = HttpClient()
+        response, _ = http_client.get(routes.url(routes.CARD_RESOURCE, customer_id=customer, pagination=pagination))
+        return resources.APIResourceCollection(resources.Card, **response)

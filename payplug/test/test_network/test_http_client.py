@@ -55,6 +55,12 @@ class TestHttpClient(TestBase):
         _request_mock.assert_called_once_with('PATCH', 'this_is_an_url', {'data': 'tada'})
 
     @patch('payplug.network.HttpClient._request')
+    def test_delete(self, _request_mock):
+        http_client = HttpClient('a_secret_key', MagicMock())
+        http_client.delete('this_is_an_url', {'data': 'tada'})
+        _request_mock.assert_called_once_with('DELETE', 'this_is_an_url', {'data': 'tada'})
+
+    @patch('payplug.network.HttpClient._request')
     def test_get(self, _request_mock):
         http_client = HttpClient('a_secret_key', MagicMock())
         http_client.get('this_is_an_url')

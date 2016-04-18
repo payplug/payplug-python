@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import pytest
 from mock import patch
 import payplug
 from payplug.resources import Refund
@@ -36,22 +37,18 @@ class TestRefundResource(TestBase):
         assert refund_object.metadata['reason'] == "The delivery was delayed"
 
 
+@pytest.fixture
+def refund_fixture():
+    return {
+        "id": "re_5iHMDxy4ABR4YBVW4UscIn",
+        "payment_id": "pay_3fJie31HD5eF3dAjdI3903",
+        "object": "refund",
+    }
+
+
 @patch('payplug.config.secret_key', 'a_secret_key')
+@patch.object(payplug.HttpClient, 'get', lambda *args, **kwargs: (refund_fixture(), 200))
 class TestConsistentRefund(TestBase):
-    @classmethod
-    def setup_class(cls):
-        api_response = {
-            "id": "re_5iHMDxy4ABR4YBVW4UscIn",
-            "payment_id": "pay_3fJie31HD5eF3dAjdI3903",
-            "object": "refund",
-        }
-        cls.patcher_http_client = patch.object(payplug.HttpClient, 'get', return_value=(api_response, 200))
-        cls.patcher_http_client.start()
-
-    @classmethod
-    def teardown_class(cls):
-        cls.patcher_http_client.stop()
-
     @patch('payplug.resources.routes.url')
     def test_get_consistent_resource(self, routes_url_mock):
         unsafe_refund = Refund(id='re_5iHMDxy4ABR4YBVW4UscIn_unsafe',
