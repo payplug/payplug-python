@@ -296,7 +296,7 @@ class Card(APIResource, ReconstituableAPIResource):
         """
         Delete the card.
         """
-        payplug.Card.delete(self)
+        payplug.Card.delete(self.customer_id, self)
 
 
 class APIResourceCollection(APIResource):
