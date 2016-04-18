@@ -138,5 +138,5 @@ class TestConsistentPayment(TestBase):
         safe_payment = unsafe_payment.get_consistent_resource()
 
         assert isinstance(safe_payment, Payment)
-        assert routes_url_mock.call_args[1]['payment_id'] == 'pay_5iHMDxy4ABR4YBVW4UscIn_unsafe'
+        assert routes_url_mock.call_args[1]['resource_id'] == 'pay_5iHMDxy4ABR4YBVW4UscIn_unsafe'
         assert safe_payment.id == 'pay_5iHMDxy4ABR4YBVW4UscIn'

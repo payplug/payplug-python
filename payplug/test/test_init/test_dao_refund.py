@@ -24,7 +24,7 @@ class TestRefundCreateRetrieve(TestBase):
         refund = payplug.Refund.retrieve('pay_payment_id', 're_refund_id')
 
         assert url_mock.call_args[1]['payment_id'] == 'pay_payment_id'
-        assert url_mock.call_args[1]['refund_id'] == 're_refund_id'
+        assert url_mock.call_args[1]['resource_id'] == 're_refund_id'
 
         assert isinstance(refund, resources.Refund)
 
@@ -34,7 +34,7 @@ class TestRefundCreateRetrieve(TestBase):
         refund = payplug.Refund.retrieve(payment, 're_refund_id')
 
         assert url_mock.call_args[1]['payment_id'] == 'pay_payment_id'
-        assert url_mock.call_args[1]['refund_id'] == 're_refund_id'
+        assert url_mock.call_args[1]['resource_id'] == 're_refund_id'
 
         assert isinstance(refund, resources.Refund)
 
