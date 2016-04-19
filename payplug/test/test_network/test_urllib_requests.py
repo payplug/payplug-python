@@ -7,6 +7,7 @@ import sys
 from payplug import network
 from payplug.test import TestBase
 
+
 @pytest.mark.xfail(sys.version_info < (2, 7, 9), reason="Can't set ca_file easily with urllib.")
 class TestUrllibRequest(TestBase):
     @pytest.fixture(scope='class')
@@ -41,7 +42,7 @@ class TestUrllibRequest(TestBase):
             response = request.do_request('GET', 'http://example.com', {}, {'some': 'data'})
 
         urllib_request_mock.assert_called_once_with('http://example.com', '{"some":"data"}', {})
-        urllib_urlopen_200_fixture.assert_called_once_with(urllib_request_object_mock, cafile='cacert_path')
+        urllib_urlopen_200_fixture.assert_called_once_with(urllib_request_object_mock)
 
         assert ('OK', 200, {'header': 'header_value'}) == response
 

@@ -160,7 +160,7 @@ class Payment(APIResource, VerifiableAPIResource, ReconstituableAPIResource):
         :rtype Payment
         """
         http_client = HttpClient()
-        response, _ = http_client.get(routes.url(routes.RETRIEVE_PAYMENT, payment_id=self.id))
+        response, _ = http_client.get(routes.url(routes.PAYMENT_RESOURCE, resource_id=self.id))
         return Payment(**response)
 
     def refund(self, **data):
@@ -176,12 +176,21 @@ class Payment(APIResource, VerifiableAPIResource, ReconstituableAPIResource):
 
     def list_refunds(self):
         """
-        List the refund of a payment.
+        List the refunds of a payment.
 
         :return The refunds iterable object
         :rtype APIResourceCollection
         """
         return payplug.Refund.list(self)
+
+    def abort(self):
+        """
+        Abort a payment.
+
+        :return The aborted payment object
+        :rtype Payment
+        """
+        return payplug.Payment.abort(self)
 
     class Card(APIResource):
         """
@@ -226,8 +235,68 @@ class Refund(APIResource, VerifiableAPIResource, ReconstituableAPIResource):
         :rtype Refund
         """
         http_client = HttpClient()
-        response, _ = http_client.get(routes.url(routes.RETRIEVE_REFUND, payment_id=self.payment_id, refund_id=self.id))
+        response, _ = http_client.get(
+            routes.url(routes.REFUND_RESOURCE, resource_id=self.id, payment_id=self.payment_id)
+        )
         return Refund(**response)
+
+
+class Customer(APIResource, ReconstituableAPIResource):
+    """
+    A Customer Resource.
+    """
+    object_type = 'customer'
+
+    def update(self, **data):
+        """
+        Update a customer.
+
+        :param data: the data to update.
+        """
+        return payplug.Customer.update(self, **data)
+
+    def delete(self):
+        """
+        Delete the customer.
+        """
+        payplug.Customer.delete(self)
+
+    def add_card(self, **data):
+        """
+        Add a card to the customer.
+
+        :param data: The card data
+        :return: The new card object
+        :rtype Card
+        """
+        return payplug.Card.create(self, **data)
+
+    def list_cards(self, *args, **kwargs):
+        """
+        List the cards of the customer.
+
+        :param page: the page number
+        :type page: int|None
+        :param per_page: number of customers per page. It's a good practice to increase this number if you know that you
+        will need a lot of payments.
+        :type per_page: int|None
+        :return: The cards of the customer
+        :rtype APIResourceCollection
+        """
+        return payplug.Card.list(self, *args, **kwargs)
+
+
+class Card(APIResource, ReconstituableAPIResource):
+    """
+    A Card Resource.
+    """
+    object_type = 'card'
+
+    def delete(self):
+        """
+        Delete the card.
+        """
+        payplug.Card.delete(self.customer_id, self)
 
 
 class APIResourceCollection(APIResource):
@@ -263,5 +332,7 @@ class APIResourceCollection(APIResource):
 
     def next(self):
         return next(self._iterator)
-
     __next__ = next  # Python 3 compatibility
+
+    def __getitem__(self, item):
+        return self.data[item]
