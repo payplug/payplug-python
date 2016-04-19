@@ -1,0 +1,53 @@
+language: python
+
+python:
+  - "2.6"
+  - "2.7"
+  - "3.2"
+  - "3.3"
+  - "3.4"
+  - "3.5"
+  - "pypy"
+  - "pypy3"
+
+env:
+  - REQUESTS=1.0
+  - REQUESTS=1.1
+  - REQUESTS=1.2
+  - REQUESTS=2.0
+  - REQUESTS=2.1
+  - REQUESTS=2.2
+  - REQUESTS=2.3
+  - REQUESTS=2.4
+  - REQUESTS=2.5
+  - REQUESTS=2.6
+  - REQUESTS=2.7
+  - REQUESTS=2.8
+  - REQUESTS=2.9
+  - REQUESTS=dev
+
+cache: pip
+
+matrix:
+  fast_finish: true
+  exclude:
+    # No support for Python 3.4+ in requests 1.x
+    - python: "3.4"
+      env: REQUESTS=1.0
+    - python: "3.4"
+      env: REQUESTS=1.1
+    - python: "3.4"
+      env: REQUESTS=1.2
+    - python: "3.5"
+      env: REQUESTS=1.0
+    - python: "3.5"
+      env: REQUESTS=1.1
+    - python: "3.5"
+      env: REQUESTS=1.2
+
+# No support for Python 3.2- in virtualenv 14+
+install:
+  - travis_retry pip install "virtualenv<14.0.0" "tox>=1.9"
+
+script:
+  - tox -e py$(echo $(echo $TRAVIS_PYTHON_VERSION | sed -e 's/pypy/py/')-requests$REQUESTS | tr -d .) -- --cov=payplug
