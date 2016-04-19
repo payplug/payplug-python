@@ -2,10 +2,12 @@ Python library for the PayPlug API
 ==================================
 
 .. image:: https://travis-ci.org/payplug/payplug-python.svg?branch=master
-:target: https://travis-ci.org/payplug/payplug-python
+   :target: https://travis-ci.org/payplug/payplug-python
+   :alt: CI Status
 
 .. image:: https://img.shields.io/pypi/v/payplug.svg?maxAge=2592000
-:target: https://pypi.python.org/pypi/payplug/
+   :target: https://pypi.python.org/pypi/payplug/
+   :alt: PyPi
 
 This is the documentation of PayPlug's Python library. It is designed to help developers to use PayPlug as
 payment solution in a simple, yet robust way.
