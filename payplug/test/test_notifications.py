@@ -27,7 +27,7 @@ class TestTreatNotificationsIssue(TestBase):
         with pytest.raises(exceptions.UnknownAPIResource):
             notifications.treat('{"id": "payment_id", "object": "bouillabaisse"}')
 
-    def test_treat_invalide_api_resource(self):
+    def test_treat_invalid_api_resource(self):
         with pytest.raises(exceptions.UnknownAPIResource) as excinfo:
             notifications.treat('{"this_resource": "has_no_id", "object": "payment"}')
         assert str(excinfo.value) == 'The API resource provided is invalid.'
