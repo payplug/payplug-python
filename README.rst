@@ -12,6 +12,8 @@ Python library for the PayPlug API
 This is the documentation of PayPlug's Python library. It is designed to help developers to use PayPlug as
 payment solution in a simple, yet robust way.
 
+You can create a PayPlug account at http://payplug.com.
+
 Prerequisites
 -------------
 
@@ -21,6 +23,10 @@ versions, pypy and pypy3. It may work on older versions or other Python implemen
 implementation that is not listed above, do not hesitate to let us known if it worked for you or not, so that we can
 update this prerequisites.
 To ensure **Python 2** and **Python 3** compatibility, this library also depends on **six>=1.4.0**.
+
+Documentation
+-------------
+Please see https://www.payplug.com/docs/api for latest documentation.
 
 Installation
 ------------
