@@ -12,7 +12,7 @@ Python library for the PayPlug API
 This is the documentation of PayPlug's Python library. It is designed to help developers to use PayPlug as
 payment solution in a simple, yet robust way.
 
-You can create a PayPlug account at http://payplug.com.
+You can create a PayPlug account at http://www.payplug.com.
 
 Prerequisites
 -------------
