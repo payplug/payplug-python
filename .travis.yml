@@ -23,6 +23,8 @@ env:
   - REQUESTS=2.7
   - REQUESTS=2.8
   - REQUESTS=2.9
+  - REQUESTS=2.10
+  - REQUESTS=2.11
   - REQUESTS=dev
 
 cache: pip
