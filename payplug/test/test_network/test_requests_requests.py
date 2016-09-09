@@ -22,7 +22,7 @@ class TestRequestsRequest(TestBase):
 
     @pytest.fixture(scope='class')
     def requests_request_request_exception_fixture(self):
-        return MagicMock(side_effect=requests.exceptions.ProxyError())
+        return MagicMock(side_effect=requests.exceptions.SSLError())
 
     @patch('payplug.network.config')
     def test_do_request_ok(self, config_mock, requests_request_200_fixture):
@@ -64,7 +64,7 @@ class TestRequestsRequest(TestBase):
                 request.do_request('GET', 'http://example.com', {}, {})
         assert isinstance(excinfo.value.client_exception, requests.exceptions.RequestException)
         assert 'Please verify `requests` library configuration and update it.' in str(excinfo.value)
-        assert 'ProxyError' in str(excinfo.value)
+        assert 'SSLError' in str(excinfo.value)
 
     def test_get_user_agent_string(self):
         user_agent_string = network.RequestsRequest.get_useragent_string()
