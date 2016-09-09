@@ -22,7 +22,7 @@ class TestRequestsRequest(TestBase):
 
     @pytest.fixture(scope='class')
     def requests_request_request_exception_fixture(self):
-        return MagicMock(side_effect=requests.exceptions.RequestException())
+        return MagicMock(side_effect=requests.exceptions.ProxyError())
 
     @patch('payplug.network.config')
     def test_do_request_ok(self, config_mock, requests_request_200_fixture):
@@ -44,7 +44,7 @@ class TestRequestsRequest(TestBase):
         with pytest.raises(exceptions.ClientError) as excinfo:
             with patch('payplug.network.requests.request', requests_request_timeout_fixture):
                 request.do_request('GET', 'http://example.com', {}, {})
-        assert isinstance(excinfo.value.get_client_exception, requests.exceptions.Timeout)
+        assert isinstance(excinfo.value.client_exception, requests.exceptions.Timeout)
 
     def test_do_request_too_many_redirects(self, requests_request_too_many_redirects_fixture):
         request = network.RequestsRequest()
@@ -52,8 +52,9 @@ class TestRequestsRequest(TestBase):
         with pytest.raises(exceptions.ClientError) as excinfo:
             with patch('payplug.network.requests.request', requests_request_too_many_redirects_fixture):
                 request.do_request('GET', 'http://example.com', {}, {})
-        assert isinstance(excinfo.value.get_client_exception, requests.exceptions.TooManyRedirects)
+        assert isinstance(excinfo.value.client_exception, requests.exceptions.TooManyRedirects)
         assert 'It seems to come from our servers.' in str(excinfo.value)
+        assert 'TooManyRedirects' in str(excinfo.value)
 
     def test_do_request_request_exception(self, requests_request_request_exception_fixture):
         request = network.RequestsRequest()
@@ -61,8 +62,9 @@ class TestRequestsRequest(TestBase):
         with pytest.raises(exceptions.ClientError) as excinfo:
             with patch('payplug.network.requests.request', requests_request_request_exception_fixture):
                 request.do_request('GET', 'http://example.com', {}, {})
-        assert isinstance(excinfo.value.get_client_exception, requests.exceptions.RequestException)
+        assert isinstance(excinfo.value.client_exception, requests.exceptions.RequestException)
         assert 'Please verify `requests` library configuration and update it.' in str(excinfo.value)
+        assert 'ProxyError' in str(excinfo.value)
 
     def test_get_user_agent_string(self):
         user_agent_string = network.RequestsRequest.get_useragent_string()

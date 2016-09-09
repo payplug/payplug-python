@@ -53,7 +53,7 @@ class TestHttpError(TestBase):
 
 
 class TestClientError:
-    def test_get_client_exception(self):
+    def test_client_exception(self):
         client_exception = ValueError('foo bar')
         client_error = exceptions.ClientError(client_exception=client_exception)
-        assert client_error.get_client_exception == client_exception
+        assert client_error.client_exception == client_exception

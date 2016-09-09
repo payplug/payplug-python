@@ -40,7 +40,7 @@ class ClientError(PayplugError):
         self._client_exception = client_exception
 
     @property
-    def get_client_exception(self):
+    def client_exception(self):
         """
         :return The client exception attached to this exception
         """
