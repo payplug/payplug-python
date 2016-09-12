@@ -20,7 +20,7 @@ class HttpRequest(with_metaclass(abc.ABCMeta)):
         """
         message = ('There was an unrecoverable error during the HTTP request. It seems to come from our servers. '
                    'If you are behind a proxy, ensure that it is configured correctly. If the issue persists, do not '
-                   'hesitate to contact us.')
+                   'hesitate to contact us with the following information: `' + repr(exception) + '`.')
         raise exceptions.ClientError(message, client_exception=exception)
 
     def _raise_unrecoverable_error_client(self, exception):
@@ -33,7 +33,8 @@ class HttpRequest(with_metaclass(abc.ABCMeta)):
         """
         message = ('There was an unrecoverable error during the HTTP request which is probably related to your '
                    'configuration. Please verify `' + self.DEPENDENCY + '` library configuration and update it. If the '
-                   'issue persists, do not hesitate to contact us.')
+                   'issue persists, do not hesitate to contact us with the following information: `' + repr(exception) +
+                   '`.')
         raise exceptions.ClientError(message, client_exception=exception)
 
     @abc.abstractmethod

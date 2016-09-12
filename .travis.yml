@@ -23,6 +23,8 @@ env:
   - REQUESTS=2.7
   - REQUESTS=2.8
   - REQUESTS=2.9
+  - REQUESTS=2.10
+  - REQUESTS=2.11
   - REQUESTS=dev
 
 cache: pip
@@ -49,4 +51,4 @@ install:
   - travis_retry pip install "virtualenv<14.0.0" "tox>=1.9"
 
 script:
-  - tox -e py$(echo $(echo $TRAVIS_PYTHON_VERSION | sed -e 's/pypy/py/')-requests$REQUESTS | tr -d .) -- --cov=payplug
+  - tox -e py$(echo $(echo $TRAVIS_PYTHON_VERSION | sed -e 's/pypy/py/')-requests$REQUESTS | tr -d .)-travis -- --cov=payplug
