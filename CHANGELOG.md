@@ -1,3 +1,8 @@
+1.2.1
+-----
+- Require pyOpenSSL>=0.15 to prevent random failures.
+- Log more errors in case of request failure.
+
 1.2.0
 -----
 
