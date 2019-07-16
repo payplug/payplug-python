@@ -124,7 +124,6 @@ class TestPaymentResource(TestBase):
         payment_abort_mock.assert_called_once_with(payment)
 
 
-@pytest.fixture
 def payment_fixture():
     return {
         "id": "pay_5iHMDxy4ABR4YBVW4UscIn",
