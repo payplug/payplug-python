@@ -40,7 +40,7 @@ class PyTest(test):
 
 # Manage dependancies between python2 and 3
 if sys.version_info.major == 2:
-    pytest_version = 'pytest<=5'
+    pytest_version = 'pytest<5'
 else:
     pytest_version = 'pytest>=5,<6'
 
