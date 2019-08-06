@@ -1,0 +1,36 @@
+trigger:
+  branches:
+    include:
+      - '*'
+  tags:
+    include:
+      - '*'
+
+stages:
+  - stage: checks
+    displayName: Static checks
+    jobs:
+      - template: .ci/templates/docker-jobs.yml
+        parameters:
+          jobs:
+            - job: flake8
+              displayName: Run Flake8
+              steps:
+                - script: |
+                    - python --version
+                    - pip install flake8
+                    - flake8 application --exclude="application/config*" lib setup.py tasks tests tools
+
+  - stage: tests
+    displayName: Run tests
+    jobs:
+      - template: .ci/templates/docker-jobs.yml
+        parameters:
+          jobs:
+            - job: test
+              displayName: Run test
+              steps:
+                - script: |
+                    - easy_install pip --upgrade
+                    - pip install --upgrade setuptools pbr
+                    - python setup.py test
