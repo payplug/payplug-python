@@ -17,9 +17,9 @@ stages:
               displayName: Run Flake8
               steps:
                 - script: |
-                    - python --version
-                    - pip install flake8
-                    - flake8 application --exclude="application/config*" lib setup.py tasks tests tools
+                    python --version
+                    pip install flake8
+                    flake8 application --exclude="application/config*" lib setup.py tasks tests tools
 
   - stage: tests
     displayName: Run tests
@@ -31,6 +31,6 @@ stages:
               displayName: Run test
               steps:
                 - script: |
-                    - easy_install pip --upgrade
-                    - pip install --upgrade setuptools pbr
-                    - python setup.py test
+                    easy_install pip --upgrade
+                    pip install --upgrade setuptools pbr
+                    python setup.py test
