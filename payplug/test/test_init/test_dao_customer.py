@@ -49,7 +49,6 @@ class TestCustomerCreateRetrieveUpdateDelete(TestBase):
         assert res is None
 
 
-@pytest.fixture
 def customers_list_fixture():
     return {
         "type": "list",

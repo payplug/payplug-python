@@ -1,19 +1,36 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
-- master
+  branches:
+    include:
+      - '*'
+  tags:
+    include:
+      - '*'
 
-pool:
-  vmImage: 'ubuntu-latest'
+stages:
+  - stage: checks
+    displayName: Static checks
+    jobs:
+      - template: .ci/templates/docker-jobs.yml
+        parameters:
+          jobs:
+            - job: flake8
+              displayName: Run Flake8
+              steps:
+                - script: |
+                    - python --version
+                    - pip install flake8
+                    - flake8 application --exclude="application/config*" lib setup.py tasks tests tools
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+  - stage: tests
+    displayName: Run tests
+    jobs:
+      - template: .ci/templates/docker-jobs.yml
+        parameters:
+          jobs:
+            - job: test
+              displayName: Run test
+              steps:
+                - script: |
+                    - easy_install pip --upgrade
+                    - pip install --upgrade setuptools pbr
+                    - python setup.py test

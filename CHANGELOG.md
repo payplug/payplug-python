@@ -1,3 +1,8 @@
+1.2.2
+-----
+- Fix deprecated message for pytest fixtures.
+- Specify pytest version for python2 and python3 compatibility.
+
 1.2.1
 -----
 - Require pyOpenSSL>=0.15 to prevent random failures.

@@ -37,6 +37,14 @@ class PyTest(test):
         errno = pytest.main(self.pytest_args)
         sys.exit(errno)
 
+
+# Manage dependancies between python2 and 3
+if sys.version_info.major == 2:
+    pytest_version = 'pytest<5'
+else:
+    pytest_version = 'pytest>=5,<6'
+
+
 setup(
     name='payplug',
     version=__version__,
@@ -73,7 +81,7 @@ setup(
     packages=find_packages(exclude=['*.test*']),
 
     install_requires=['requests>=1.0.1,<3.0', 'six>=1.4.0', 'pyOpenSSL>=0.15'],
-    tests_require=['pytest>=2.7.0', 'mock>=1.0.1,<2.0', 'six>=1.7.0'],
+    tests_require=[pytest_version, 'mock>=1.0.1,<2.0', 'six>=1.7.0'],
 
     # If there are data files included in your packages that need to be
     # installed, specify them here.  If using Python 2.6 or less, then these
