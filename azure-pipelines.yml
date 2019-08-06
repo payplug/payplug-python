@@ -17,7 +17,7 @@ strategy:
     Python36:
       python.version: '3.6'
 
-#stages:
+stages:
 #  - stage: checks
 #    displayName: Static checks
 #    jobs:
