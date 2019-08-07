@@ -27,8 +27,8 @@ stages:
                     container: 'python:3.7'
               steps:
                 - script: |
-                    easy_install pip --upgrade
-                    pip install --upgrade --user setuptools pbr
+                    easy_install pip --upgrade  --user
+                    pip install --upgrade setuptools pbr
                     python setup.py test
 
   - stage: checks
