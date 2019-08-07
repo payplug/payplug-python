@@ -28,7 +28,7 @@ stages:
               steps:
                 - script: |
                     easy_install pip --upgrade
-                    pip install --upgrade setuptools pbr
+                    pip install --upgrade --user setuptools pbr
                     python setup.py test
 
   - stage: checks
