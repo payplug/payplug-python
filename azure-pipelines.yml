@@ -14,18 +14,22 @@ stages:
         parameters:
           jobs:
             - job: test
-              displayName: Run test
               strategy:
                 matrix:
-                  python27:
-                    container: 'python:2.7'
-                  python35:
-                    container: 'python:3.5'
-                  python36:
-                    container: 'python:3.6'
-                  python37:
-                    container: 'python:3.7'
+                  Python27:
+                    python.version: '2.7'
+                  Python35:
+                    python.version: '3.5'
+                  Python36:
+                    python.version: '3.6'
+                  Python37:
+                    python.version: '3.7'
               steps:
+                - task: UsePythonVersion@0
+                  displayName: 'Use Python $(python.version)'
+                  inputs:
+                    versionSpec: '$(python.version)'
+
                 - script: |
                     easy_install pip --upgrade
                     pip install --upgrade setuptools pbr
