@@ -17,13 +17,13 @@ stages:
               displayName: Run test
               strategy:
                 matrix:
-                  python27:
+                  Python27:
                     container: 'python:2.7'
-                  python35:
+                  Python35:
                     container: 'python:3.5'
-                  python36:
+                  Python36:
                     container: 'python:3.6'
-                  python37:
+                  Python37:
                     container: 'python:3.7'
               steps:
                 - script: |
