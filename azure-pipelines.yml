@@ -35,4 +35,4 @@ stages:
                     python --version
                     pip install flake8 --user
                     pip freeze
-                    flake8 application --exclude="application/config*" lib setup.py tasks tests tools
+                    python -m flake8
