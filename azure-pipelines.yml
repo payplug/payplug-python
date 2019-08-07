@@ -33,7 +33,6 @@ stages:
               steps:
                 - script: |
                     python --version
-                    pwd
-                    ls -lah
-                    pip install flake8
+                    pip install flake8 --user
+                    pip freeze
                     flake8 application --exclude="application/config*" lib setup.py tasks tests tools
