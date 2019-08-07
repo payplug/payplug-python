@@ -7,7 +7,6 @@ trigger:
       - '*'
 
 stages:
-
   - stage: tests
     displayName: Run tests
     jobs:
@@ -16,6 +15,14 @@ stages:
           jobs:
             - job: test
               displayName: Run test
+              strategy:
+                matrix:
+                  python27:
+                    container: 'python:2.7'
+                  python35:
+                    container: 'python:3.5'
+                  python36:
+                    container: 'python:3.6'
               steps:
                 - script: |
                     easy_install pip --upgrade
