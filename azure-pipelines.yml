@@ -7,16 +7,6 @@ trigger:
       - '*'
 
 stages:
-#  pool:
-#    vmImage: 'ubuntu-16.04' # other options: 'macOS-10.13', 'vs2017-win2016'
-#  strategy:
-#    matrix:
-#      Python27:
-#        python.version: '2.7'
-#      Python35:
-#        python.version: '3.5'
-#      Python36:
-#        python.version: '3.6'
 
   - stage: tests
     displayName: Run tests
@@ -32,16 +22,18 @@ stages:
                     pip install --upgrade setuptools pbr
                     python setup.py test
 
-#  - stage: checks
-#    displayName: Static checks
-#    jobs:
-#      - template: .ci/templates/docker-jobs.yml
-#        parameters:
-#          jobs:
-#            - job: flake8
-#              displayName: Run Flake8
-#              steps:
-#                - script: |
-#                    python --version
-#                    pip install flake8 --user
-#                    flake8 application --exclude="application/config*" lib setup.py tasks tests tools
+  - stage: checks
+    displayName: Static checks
+    jobs:
+      - template: .ci/templates/docker-jobs.yml
+        parameters:
+          jobs:
+            - job: flake8
+              displayName: Run Flake8
+              steps:
+                - script: |
+                    python --version
+                    pwd
+                    ls -lah
+                    pip install flake8
+                    flake8 application --exclude="application/config*" lib setup.py tasks tests tools
