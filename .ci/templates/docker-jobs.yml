@@ -1,7 +1,7 @@
 parameters:
   jobs: []
   vmImage: 'ubuntu-latest'
-  container: 'python:2.7'
+  container: 'python:3.6'
 
 jobs:
 - ${{ each job in parameters.jobs }}:
