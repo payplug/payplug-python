@@ -30,6 +30,18 @@ class TestHttpClient(TestBase):
         with pytest.raises(exceptions.SecretKeyNotSet):
             HttpClient()
 
+    @patch('payplug.network.available_clients', [network.RequestsRequest])
+    @patch('payplug.config.api_version', 'an_api_version')
+    def test_default_api_version(self):
+        http_client = HttpClient()
+        assert http_client._api_version == 'an_api_version'
+
+    @patch('payplug.network.available_clients', [network.RequestsRequest])
+    @patch('payplug.config.api_version', 'an_api_version')
+    def test_api_version(self):
+        http_client = HttpClient(api_version='another_api_version')
+        assert http_client._api_version == 'another_api_version'
+
     @patch('payplug.network.available_clients', [network.RequestsRequest, network.UrllibRequest])
     @patch('payplug.config.secret_key', 'a_secret_key')
     def test_default_request_handler(self):
