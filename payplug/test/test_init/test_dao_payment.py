@@ -37,7 +37,6 @@ class TestPaymentCreateRetrieveAbort(TestBase):
         assert payment.id == 'pay_payment_id'
 
 
-@pytest.fixture
 def get_payments_fixture():
     return {
         "type": "list",

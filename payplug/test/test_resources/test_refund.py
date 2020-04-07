@@ -37,7 +37,6 @@ class TestRefundResource(TestBase):
         assert refund_object.metadata['reason'] == "The delivery was delayed"
 
 
-@pytest.fixture
 def refund_fixture():
     return {
         "id": "re_5iHMDxy4ABR4YBVW4UscIn",
