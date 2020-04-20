@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from datetime import datetime
 from six import string_types
 from payplug import config, exceptions, network, notifications, resources, routes
 from payplug.network import HttpClient, UrllibRequest
@@ -41,8 +42,10 @@ def set_api_version(version):
     :type version: string
     """
 
-    if not isinstance(version, string_types):
-        raise exceptions.ConfigurationError("Expected string value for version.")
+    try:
+        date = datetime.strptime(version, '%Y-%m-%d')
+    except ValueError:
+        raise exceptions.ConfigurationError("Version should be formatted as an ISO-8601 date.")
 
     config.api_version = version
 

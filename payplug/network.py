@@ -282,7 +282,7 @@ class HttpClient(object):
             headers['Authorization'] = 'Bearer ' + self._secret_key
 
         if self._api_version:
-            headers['PayPlug-Version'] = '' + self._api_version
+            headers['PayPlug-Version'] = self._api_version
 
         requestor = self._request_handler()
         response, status, _ = requestor.do_request(http_verb, url, headers, data)
