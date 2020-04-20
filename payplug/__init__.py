@@ -42,10 +42,8 @@ def set_api_version(version):
     :type version: string
     """
 
-    try:
-        date = datetime.strptime(version, '%Y-%m-%d')
-    except ValueError:
-        raise exceptions.ConfigurationError("Version should be formatted as an ISO-8601 date.")
+    if not isinstance(version, string_types) and version is not None:
+        raise exceptions.ConfigurationError('Expected string value for API version.')
 
     config.api_version = version
 
