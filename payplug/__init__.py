@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from datetime import datetime
 from six import string_types
 from payplug import config, exceptions, network, notifications, resources, routes
 from payplug.network import HttpClient, UrllibRequest
@@ -27,6 +28,24 @@ def set_secret_key(token):
         raise exceptions.ConfigurationError('Expected string value for token.')
 
     config.secret_key = token
+
+def set_api_version(version):
+    """
+    Specify the PayPlug API version to use.
+
+    :Example
+
+    >>> import payplug
+    >>> payplug.set_api_version("2019-08-06")
+
+    :param version: the desired version, as an ISO-8601 date
+    :type version: string
+    """
+
+    if not isinstance(version, string_types) and version is not None:
+        raise exceptions.ConfigurationError('Expected string value for API version.')
+
+    config.api_version = version
 
 
 class Payment(object):

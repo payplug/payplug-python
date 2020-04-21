@@ -158,7 +158,7 @@ class HttpClient(object):
     """
     HTTP Client that relies on HttpRequest to perform requests.
     """
-    def __init__(self, token=None, request_handler=None):
+    def __init__(self, token=None, request_handler=None, api_version=None):
         """
         :param token: the secret key that will be used to authenticate API requests
         :type token: string
@@ -173,6 +173,7 @@ class HttpClient(object):
             raise exceptions.SecretKeyNotSet('You must set your secret key using payplug.set_secret_key() function.')
 
         self._secret_key = token or config.secret_key
+        self._api_version = api_version or config.api_version
         self._request_handler = request_handler or available_clients[0]
 
     def post(self, url, data=None):
@@ -279,6 +280,9 @@ class HttpClient(object):
         }
         if authenticated:
             headers['Authorization'] = 'Bearer ' + self._secret_key
+
+        if self._api_version:
+            headers['PayPlug-Version'] = self._api_version
 
         requestor = self._request_handler()
         response, status, _ = requestor.do_request(http_verb, url, headers, data)

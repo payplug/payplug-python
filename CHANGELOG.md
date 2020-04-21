@@ -1,3 +1,9 @@
+1.2.2
+-----
+- Add API version setting
+- Fix tests
+- Move CI to Github Actions
+
 1.2.1
 -----
 - Require pyOpenSSL>=0.15 to prevent random failures.

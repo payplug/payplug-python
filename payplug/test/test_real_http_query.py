@@ -7,13 +7,15 @@ from payplug.test import TestBase
 
 
 class TestRealHttpQuery(TestBase):
-    def test_http_query_requests(self):
-        http_client = HttpClient(token='a_secret_key', request_handler=RequestsRequest)
+    @pytest.mark.parametrize("api_version", [None, '2019-08-06'])
+    def test_http_query_requests(self, api_version):
+        http_client = HttpClient(token='a_secret_key', api_version=api_version, request_handler=RequestsRequest)
         _, status = http_client._request('GET', routes.API_BASE_URL + '/test', authenticated=False)
         assert status == 200
 
     @pytest.mark.xfail(sys.version_info < (2, 7, 9), reason="Can't set ca_file easily with urllib.")
-    def test_http_query_urllib(self):
-        http_client = HttpClient(token='a_secret_key', request_handler=UrllibRequest)
+    @pytest.mark.parametrize("api_version", [None, '2019-08-06'])
+    def test_http_query_urllib(self, api_version):
+        http_client = HttpClient(token='a_secret_key', api_version=api_version, request_handler=UrllibRequest)
         _, status = http_client._request('GET', routes.API_BASE_URL + '/test', authenticated=False)
         assert status == 200

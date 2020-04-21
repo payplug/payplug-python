@@ -47,7 +47,6 @@ class TestRefundCreateRetrieve(TestBase):
         assert isinstance(refund, resources.Refund)
 
 
-@pytest.fixture
 def get_refunds_fixture():
     return {
         "type": "list",

@@ -30,6 +30,18 @@ class TestHttpClient(TestBase):
         with pytest.raises(exceptions.SecretKeyNotSet):
             HttpClient()
 
+    @patch('payplug.network.available_clients', [network.RequestsRequest])
+    @patch('payplug.config.api_version', 'an_api_version')
+    def test_default_api_version(self):
+        http_client = HttpClient()
+        assert http_client._api_version == 'an_api_version'
+
+    @patch('payplug.network.available_clients', [network.RequestsRequest])
+    @patch('payplug.config.api_version', 'an_api_version')
+    def test_api_version(self):
+        http_client = HttpClient(api_version='another_api_version')
+        assert http_client._api_version == 'another_api_version'
+
     @patch('payplug.network.available_clients', [network.RequestsRequest, network.UrllibRequest])
     @patch('payplug.config.secret_key', 'a_secret_key')
     def test_default_request_handler(self):
@@ -71,7 +83,7 @@ class TestHttpClient(TestBase):
         requestor.do_request.return_value = '"a valid json response"', 201, {}
         request_handler = MagicMock(return_value=requestor)
 
-        http_client = HttpClient('a_secret_key', request_handler)
+        http_client = HttpClient('a_secret_key', request_handler, api_version='an_api_version')
         response, status = http_client._request('POST', 'this_is_an_url', {'some': 'data'})
 
         assert requestor.do_request.call_count == 1
@@ -79,6 +91,7 @@ class TestHttpClient(TestBase):
         assert do_request_args[0] == 'POST'
         assert do_request_args[1] == 'this_is_an_url'
         assert do_request_args[2]['Authorization'] == 'Bearer a_secret_key'
+        assert do_request_args[2]['PayPlug-Version'] == 'an_api_version'
         assert do_request_args[3] == {'some': 'data'}
 
         assert response == 'a valid json response'

@@ -1,8 +1,8 @@
 Python library for the PayPlug API
 ==================================
 
-.. image:: https://travis-ci.org/payplug/payplug-python.svg?branch=master
-   :target: https://travis-ci.org/payplug/payplug-python
+.. image:: https://github.com/payplug/payplug-python/workflows/CI/badge.svg
+   :target: https://github.com/payplug/payplug-python/actions
    :alt: CI Status
 
 .. image:: https://img.shields.io/pypi/v/payplug.svg?maxAge=2592000
@@ -61,7 +61,7 @@ To get started, add the following piece of code to the header of your Python pro
 
     import payplug
 
-If everything run without error, congratulations. You installed PayPlug python library! You're ready to create your
+If everything runs without errors, congratulations. You installed PayPlug python library! You're ready to create your
 first payment.
 
 Usage

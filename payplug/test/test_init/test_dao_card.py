@@ -57,7 +57,6 @@ class TestCardCreateRetrieveDelete(TestBase):
         assert res is None
 
 
-@pytest.fixture
 def cards_list_fixture():
     return {
         "type": "list",
