@@ -6,6 +6,7 @@ PAYMENT_RESOURCE = '/payments'
 REFUND_RESOURCE = PAYMENT_RESOURCE + '/{payment_id}/refunds'
 CUSTOMER_RESOURCE = '/customers'
 CARD_RESOURCE = CUSTOMER_RESOURCE + '/{customer_id}/cards'
+ACCOUNTING_REPORT_RESOURCE = '/accounting_reports'
 
 # API base url
 API_BASE_URL = 'https://api.payplug.com'
