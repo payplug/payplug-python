@@ -1,4 +1,4 @@
-1.2.3
+1.3.0
 -----
 - Add AccountingReport class to handle the new /accounting\_reports API endpoint
 
