@@ -15,7 +15,8 @@ class TestAccountingReportResource(TestBase):
             'end_date': '2020-04-30',
             'id': 'ar_1GKEACvltTVXT5muBd3AQv',
             'file_available_until': 1588083743,
-            'temporary_url': 'temporary_url'
+            'temporary_url': 'temporary_url',
+            'is_live': True
         }
 
         report_object = AccountingReport(**report_attributes)
@@ -26,6 +27,7 @@ class TestAccountingReportResource(TestBase):
         assert report_object.notification_url == 'notification_url'
         assert report_object.file_available_until == 1588083743
         assert report_object.temporary_url == 'temporary_url'
+        assert report_object.is_live == True
 
 
 def report_fixture():
