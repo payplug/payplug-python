@@ -336,3 +336,21 @@ class APIResourceCollection(APIResource):
 
     def __getitem__(self, item):
         return self.data[item]
+
+
+class AccountingReport(APIResource, VerifiableAPIResource, ReconstituableAPIResource):
+    """
+    An accounting report.
+    """
+    object_type = 'accounting_report'
+
+    def get_consistent_resource(self):
+        """
+        :return an accounting report that you can trust.
+        :rtype AccountingReport
+        """
+        http_client = HttpClient()
+        response, _ = http_client.get(
+            routes.url(routes.ACCOUNTING_REPORT_RESOURCE, resource_id=self.id)
+        )
+        return AccountingReport(**response)

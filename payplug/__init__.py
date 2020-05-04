@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
-from datetime import datetime
 from six import string_types
-from payplug import config, exceptions, network, notifications, resources, routes
-from payplug.network import HttpClient, UrllibRequest
+from payplug import config, exceptions, resources, routes
+from payplug.network import HttpClient
 from payplug.__version__ import __version__
 
 
@@ -28,6 +27,7 @@ def set_secret_key(token):
         raise exceptions.ConfigurationError('Expected string value for token.')
 
     config.secret_key = token
+
 
 def set_api_version(version):
     """
@@ -363,3 +363,37 @@ class Card(object):
         http_client = HttpClient()
         response, _ = http_client.get(routes.url(routes.CARD_RESOURCE, customer_id=customer, pagination=pagination))
         return resources.APIResourceCollection(resources.Card, **response)
+
+
+class AccountingReport:
+    """
+    A DAO for resources.AccountingReport which provides a way to query accounting reports.
+    """
+    @staticmethod
+    def retrieve(report_id):
+        """
+        Retrieve an accounting report from its id.
+
+        :param report_id: The report id
+        :type report_id: string
+
+        :return: The accounting report resource
+        :rtype: resources.AccountingReport
+        """
+        http_client = HttpClient()
+        response, __ = http_client.get(routes.url(routes.ACCOUNTING_REPORT_RESOURCE, resource_id=report_id))
+        return resources.AccountingReport(**response)
+
+    @staticmethod
+    def create(**data):
+        """
+        Create an accounting report.
+
+        :param data: data required to create the report
+
+        :return: The accounting report resource
+        :rtype resources.AccountingReport
+        """
+        http_client = HttpClient()
+        response, _ = http_client.post(routes.url(routes.ACCOUNTING_REPORT_RESOURCE), data)
+        return resources.AccountingReport(**response)
