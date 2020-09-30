@@ -71,14 +71,20 @@ Here's how simple it is to create a payment request:
 
 .. sourcecode :: python
 
+    customer = {
+        'email': 'john.watson@example.net',
+        'first_name': 'John',
+        'last_name': 'Watson',
+        'address1': '221B Baker Street',
+        'postcode': 'NW16XE',
+        'city': 'London',
+        'country': 'GB',
+    }
     payment_data = {
         'amount': 3300,
         'currency': 'EUR',
-        'customer': {
-            'email': 'john.watson@example.net',
-            'first_name': 'John',
-            'last_name': 'Watson',
-        },
+        'billing': customer,
+        'shipping': customer,
         'hosted_payment': {
             'return_url': 'https://www.example.net/success?id=42710',
             'cancel_url': 'https://www.example.net/cancel?id=42710',
