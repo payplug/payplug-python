@@ -152,6 +152,8 @@ class Payment(APIResource, VerifiableAPIResource, ReconstituableAPIResource):
             'hosted_payment': Payment.HostedPayment,
             'notification': Payment.Notification,
             'failure': Payment.Failure,
+            'billing': Payment.Billing,
+            'shipping': Payment.Shipping,
         }
 
     def get_consistent_resource(self):
@@ -219,6 +221,18 @@ class Payment(APIResource, VerifiableAPIResource, ReconstituableAPIResource):
     class Failure(APIResource):
         """
         A payment failure
+        """
+        pass
+
+    class Billing(APIResource):
+        """
+        Billing information
+        """
+        pass
+
+    class Shipping(APIResource):
+        """
+        Shipping information
         """
         pass
 

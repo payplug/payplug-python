@@ -1,3 +1,7 @@
+1.3.1
+-----
+- Add missing `Billing` and `Shipping` entities to payment resource
+
 1.3.0
 -----
 - Add AccountingReport class to handle the new /accounting\_reports API endpoint

@@ -8,7 +8,7 @@ from payplug.test import TestBase
 
 @patch('payplug.config.secret_key', 'a_secret_key')
 class TestPaymentResource(TestBase):
-    def test_initialize_payment(self):
+    def test_initialize_payment_old(self):
         payment_attributes = {
             "id": "pay_5iHMDxy4ABR4YBVW4UscIn",
             "object": "payment",
@@ -87,6 +87,129 @@ class TestPaymentResource(TestBase):
         assert payment.customer.postcode is None
         assert payment.customer.city is None
         assert payment.customer.country is None
+
+        assert type(payment.hosted_payment) == Payment.HostedPayment
+        assert payment.hosted_payment.payment_url == "hosted_payment_payment_url"
+        assert payment.hosted_payment.return_url == "hosted_payment_return_url"
+        assert payment.hosted_payment.cancel_url == "hosted_payment_cancel_url"
+        assert payment.hosted_payment.paid_at == 1434010827
+
+        assert type(payment.notification) == Payment.Notification
+        assert payment.notification.url == "notification_url"
+        assert payment.notification.response_code == 200
+
+        assert type(payment.failure) == Payment.Failure
+        assert payment.failure.code == "a_failure_code"
+        assert payment.failure.message == 'A weird failure message ®±'
+
+        assert isinstance(payment.metadata, dict)
+        assert payment.metadata['customer_id'] == 42710
+
+    def test_initialize_payment_2019(self):
+        payment_attributes = {
+            "id": "pay_5iHMDxy4ABR4YBVW4UscIn",
+            "object": "payment",
+            "is_live": True,
+            "amount": 3300,
+            "amount_refunded": 0,
+            "currency": "EUR",
+            "created_at": 1434010787,
+            "is_paid": True,
+            "is_refunded": False,
+            "is_3ds": False,
+            "save_card": False,
+            "card": {
+                "last4": "1800",
+                "country": "FR",
+                "exp_month": 9,
+                "exp_year": 2017,
+                "brand": "Mastercard"
+            },
+            "hosted_payment": {
+                "payment_url": "hosted_payment_payment_url",
+                "return_url": "hosted_payment_return_url",
+                "cancel_url": "hosted_payment_cancel_url",
+                "paid_at": 1434010827
+            },
+            "notification": {
+                "url": "notification_url",
+                "response_code": 200
+            },
+            "failure": {
+                "code": "a_failure_code",
+                "message": 'A weird failure message ®±'
+            },
+            "metadata": {
+                "customer_id": 42710
+            },
+            'billing': {
+                'title': 'mr',
+                'first_name': 'John',
+                'last_name': 'Watson',
+                'email': 'john.watson@example.net',
+                'address1': '221B Baker Street',
+                'postcode': 'NW16XE',
+                'city': 'London',
+                'country': 'GB',
+                'language': 'en'
+            },
+            'shipping': {
+                'title': 'mr',
+                'first_name': 'John',
+                'last_name': 'Watson',
+                'email': 'john.watson@example.net',
+                'address1': '221B Baker Street',
+                'postcode': 'NW16XE',
+                'city': 'London',
+                'country': 'GB',
+                'language': 'en',
+                'delivery_type': 'BILLING'
+            },
+        }
+
+        payment = Payment(**payment_attributes)
+
+        assert payment.id == 'pay_5iHMDxy4ABR4YBVW4UscIn'
+        assert payment.object == 'payment'
+        assert payment.is_live is True
+        assert payment.amount == 3300
+        assert payment.amount_refunded == 0
+        assert payment.currency == "EUR"
+        assert payment.created_at == 1434010787
+        assert payment.is_paid is True
+        assert payment.is_refunded is False
+        assert payment.is_3ds is False
+        assert payment.save_card is False
+
+        assert type(payment.card) == Payment.Card
+        assert payment.card.last4 == "1800"
+        assert payment.card.country == "FR"
+        assert payment.card.exp_month == 9
+        assert payment.card.exp_year == 2017
+        assert payment.card.brand == "Mastercard"
+
+        assert type(payment.billing) == Payment.Billing
+        assert payment.billing.title == 'mr'
+        assert payment.billing.first_name == "John"
+        assert payment.billing.last_name == "Watson"
+        assert payment.billing.email == "john.watson@example.net"
+        assert payment.billing.address1 == '221B Baker Street'
+        assert payment.billing.postcode == 'NW16XE'
+        assert payment.billing.city == 'London'
+        assert payment.billing.country == 'GB'
+        assert payment.billing.language == 'en'
+
+        assert type(payment.shipping) == Payment.Shipping
+        assert payment.shipping.title == 'mr'
+        assert payment.shipping.first_name == "John"
+        assert payment.shipping.last_name == "Watson"
+        assert payment.shipping.email == "john.watson@example.net"
+        assert payment.shipping.address1 == '221B Baker Street'
+        assert payment.shipping.postcode == 'NW16XE'
+        assert payment.shipping.city == 'London'
+        assert payment.shipping.country == 'GB'
+        assert payment.shipping.language == 'en'
+        assert payment.shipping.delivery_type == 'BILLING'
 
         assert type(payment.hosted_payment) == Payment.HostedPayment
         assert payment.hosted_payment.payment_url == "hosted_payment_payment_url"
