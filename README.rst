@@ -71,6 +71,8 @@ Here's how simple it is to create a payment request:
 
 .. sourcecode :: python
 
+    payplug.set_api_version("2019-08-06")
+
     customer = {
         'email': 'john.watson@example.net',
         'first_name': 'John',
@@ -80,6 +82,7 @@ Here's how simple it is to create a payment request:
         'city': 'London',
         'country': 'GB',
     }
+
     payment_data = {
         'amount': 3300,
         'currency': 'EUR',
@@ -94,6 +97,7 @@ Here's how simple it is to create a payment request:
             'customer_id': 42710,
         },
     }
+
     payment = payplug.Payment.create(**payment_data)
 
 Go further:
