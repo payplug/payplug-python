@@ -368,3 +368,26 @@ class AccountingReport(APIResource, VerifiableAPIResource, ReconstituableAPIReso
             routes.url(routes.ACCOUNTING_REPORT_RESOURCE, resource_id=self.id)
         )
         return AccountingReport(**response)
+
+
+class OneyPaymentSimulation(APIResource):
+    """
+    An OneyPaymentSimulation Resource.
+    """
+    @property
+    def _mapper(self):
+        """
+        Maps each oney payment simuation item to an operation.
+
+        :see :func:`~APIResource._mapper`
+        """
+        return {
+            'x3_with_fees': OneyPaymentSimulation.Operation,
+            'x4_with_fees': OneyPaymentSimulation.Operation,
+        }
+
+    class Operation(APIResource):
+        """
+        An operation.
+        """
+        pass
