@@ -1,3 +1,7 @@
+1.4.0
+-----
+- Add OneyPaymentSimulation class to handle the /oney_payment_simulations API endpoint
+
 1.3.1
 -----
 - Add missing `Billing` and `Shipping` entities to payment resource

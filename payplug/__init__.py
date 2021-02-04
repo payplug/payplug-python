@@ -397,3 +397,22 @@ class AccountingReport:
         http_client = HttpClient()
         response, _ = http_client.post(routes.url(routes.ACCOUNTING_REPORT_RESOURCE), data)
         return resources.AccountingReport(**response)
+
+
+class OneyPaymentSimulation:
+    """
+    A DAO for resources.OneyPaymentSimulation which provides a way to query oney payment simulations.
+    """
+    @staticmethod
+    def get_simulation(**data):
+        """
+        Get an oney payment simulation.
+
+        :param data: data required to get a simulation
+
+        :return: The oney payment simulation
+        :rtype resources.OneyPaymentSimulation
+        """
+        http_client = HttpClient()
+        response, _ = http_client.post(routes.url(routes.ONEY_PAYMENT_SIMULATION), data)
+        return resources.OneyPaymentSimulation(**response)
