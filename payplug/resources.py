@@ -391,3 +391,32 @@ class OneyPaymentSimulation(APIResource):
         An operation.
         """
         pass
+
+
+class InstallmentPlan(APIResource):
+    """
+    An InstallmentPlans Resource
+    """
+    object_type = 'intallment_plan'
+
+    """
+    Create an InstallmentPlan
+
+    :param data: the data to create the installment plan
+    """
+    def create(self, **data):
+        return payplug.InstallmentPlans.create_installment_plan_endpoint(data)
+
+    """
+    Update an InstallmentPlan
+
+    :param data: the data needed to update the installment plan
+    """
+    def update(self, **data):
+        return payplug.InstallmentPlans.update_installment_plan_endpoint(self, data)
+
+    """
+    Get an InstallmentPlan
+    """
+    def get(self):
+        return payplug.InstallmentPlans.get_installment_plan_endpoint(self)
