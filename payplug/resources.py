@@ -393,30 +393,19 @@ class OneyPaymentSimulation(APIResource):
         pass
 
 
-class InstallmentPlan(APIResource):
+class InstallmentPlan(APIResource, VerifiableAPIResource, ReconstituableAPIResource):
     """
     An InstallmentPlans Resource
     """
     object_type = 'intallment_plan'
 
-    """
-    Create an InstallmentPlan
-
-    :param data: the data to create the installment plan
-    """
-    def create(self, **data):
-        return payplug.InstallmentPlans.create_installment_plan_endpoint(data)
-
-    """
-    Update an InstallmentPlan
-
-    :param data: the data needed to update the installment plan
-    """
-    def update(self, **data):
-        return payplug.InstallmentPlans.update_installment_plan_endpoint(self, data)
-
-    """
-    Get an InstallmentPlan
-    """
-    def get(self):
-        return payplug.InstallmentPlans.get_installment_plan_endpoint(self)
+    def get_consistent_resource(self):
+        """
+        :return an Installment Plan that you can trust.
+        :rtype InstallmentPlan
+        """
+        http_client = HttpClient()
+        response, _ = http_client.get(
+            routes.url(routes.INSTALLMENT_PLANS, resource_id=self.id)
+        )
+        return InstallmentPlan(**response)

@@ -422,40 +422,18 @@ class InstallmentPlan:
     """
     A DAO for resources.InstallmentPlans which provides a way to query installment plans.
     """
-    @staticmethod
-    def create(**data):
-        """
-        Create an installment plan.
-
-        :param data: data required to create an installment plan
-
-        :return: The installment plan
-        :rtype resources.InstallmentPlan
-        """
-        http_client = HttpClient()
-        response, _ = http_client.post(routes.url(routes.INSTALLMENT_PLANS), data)
-        return resources.InstallmentPlan(**response)
-    
-    @staticmethod
-    def update(installment_plan, **data):
-
-        if isinstance(installment_plan, resources.InstallmentPlan):
-            installment_plan = installment_plan.id
-
-        http_client = HttpClient()
-        response, _ = http_client.patch(routes.url(routes.INSTALLMENT_PLANS, resource_id=installment_plan), data)
-        return resources.InstallmentPlan(**response)
 
     @staticmethod
-    def get(installment_plan_id):
+    def retrieve(installment_plan_id):
         """
-        Get an installment plan.
+        Retrieve an installment plan from its id.
 
-        :param data: data required to get an installment plan
+        :param installment_plan_id: The installment plan id
+        :type installment_plan_id: string
 
-        :return: The installment plan
-        :rtype resources.InstallmentPlan
+        :return: The installment plan resource
+        :rtype: resources.InstallmentPlan
         """
         http_client = HttpClient()
-        response, _ = http_client.get(routes.url(routes.INSTALLMENT_PLANS, resource_id=installment_plan_id))
+        response, __ = http_client.get(routes.url(routes.INSTALLMENT_PLANS, resource_id=installment_plan_id))
         return resources.InstallmentPlan(**response)
