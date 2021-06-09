@@ -420,7 +420,7 @@ class OneyPaymentSimulation:
 
 class InstallmentPlan:
     """
-    A DAO for resources.InstallmentPlans which provides a way to query installment plans.
+    A DAO for resources.InstallmentPlan which provides a way to query installment plans.
     """
 
     @staticmethod
@@ -436,4 +436,33 @@ class InstallmentPlan:
         """
         http_client = HttpClient()
         response, __ = http_client.get(routes.url(routes.INSTALLMENT_PLANS, resource_id=installment_plan_id))
+        return resources.InstallmentPlan(**response)
+
+
+    @staticmethod
+    def create(**data):
+        """
+        Create an installment plan.
+        :param data: data required to create an installment plan
+        :return: The installment plan
+        :rtype resources.InstallmentPlan
+        """
+        http_client = HttpClient()
+        response, _ = http_client.post(routes.url(routes.INSTALLMENT_PLANS), data)
+        return resources.InstallmentPlan(**response)
+
+
+    @staticmethod
+    def abort(installment_plan_id):
+        """
+        Abort an installment plan.
+        :param installment_plan_id: The installment plan id
+        :type installment_plan_id: string
+        
+        :return: The installment plan
+        :rtype resources.InstallmentPlan
+        """
+        abort =  {"aborted": True}
+        http_client = HttpClient()
+        response, _ = http_client.patch(routes.url(routes.INSTALLMENT_PLANS, resource_id=installment_plan_id), abort)
         return resources.InstallmentPlan(**response)
