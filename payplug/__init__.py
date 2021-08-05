@@ -416,3 +416,53 @@ class OneyPaymentSimulation:
         http_client = HttpClient()
         response, _ = http_client.post(routes.url(routes.ONEY_PAYMENT_SIMULATION), data)
         return resources.OneyPaymentSimulation(**response)
+
+
+class InstallmentPlan:
+    """
+    A DAO for resources.InstallmentPlan which provides a way to query installment plans.
+    """
+
+    @staticmethod
+    def retrieve(installment_plan_id):
+        """
+        Retrieve an installment plan from its id.
+
+        :param installment_plan_id: The installment plan id
+        :type installment_plan_id: string
+
+        :return: The installment plan resource
+        :rtype: resources.InstallmentPlan
+        """
+        http_client = HttpClient()
+        response, __ = http_client.get(routes.url(routes.INSTALLMENT_PLANS, resource_id=installment_plan_id))
+        return resources.InstallmentPlan(**response)
+
+
+    @staticmethod
+    def create(**data):
+        """
+        Create an installment plan.
+        :param data: data required to create an installment plan
+        :return: The installment plan
+        :rtype resources.InstallmentPlan
+        """
+        http_client = HttpClient()
+        response, _ = http_client.post(routes.url(routes.INSTALLMENT_PLANS), data)
+        return resources.InstallmentPlan(**response)
+
+
+    @staticmethod
+    def abort(installment_plan_id):
+        """
+        Abort an installment plan.
+        :param installment_plan_id: The installment plan id
+        :type installment_plan_id: string
+        
+        :return: The installment plan
+        :rtype resources.InstallmentPlan
+        """
+        abort =  {"aborted": True}
+        http_client = HttpClient()
+        response, _ = http_client.patch(routes.url(routes.INSTALLMENT_PLANS, resource_id=installment_plan_id), abort)
+        return resources.InstallmentPlan(**response)

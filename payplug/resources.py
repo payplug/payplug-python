@@ -391,3 +391,21 @@ class OneyPaymentSimulation(APIResource):
         An operation.
         """
         pass
+
+
+class InstallmentPlan(APIResource, VerifiableAPIResource, ReconstituableAPIResource):
+    """
+    An InstallmentPlans Resource
+    """
+    object_type = 'intallment_plan'
+
+    def get_consistent_resource(self):
+        """
+        :return an Installment Plan that you can trust.
+        :rtype InstallmentPlan
+        """
+        http_client = HttpClient()
+        response, _ = http_client.get(
+            routes.url(routes.INSTALLMENT_PLANS, resource_id=self.id)
+        )
+        return InstallmentPlan(**response)

@@ -8,6 +8,7 @@ CUSTOMER_RESOURCE = '/customers'
 CARD_RESOURCE = CUSTOMER_RESOURCE + '/{customer_id}/cards'
 ACCOUNTING_REPORT_RESOURCE = '/accounting_reports'
 ONEY_PAYMENT_SIMULATION = '/oney_payment_simulations'
+INSTALLMENT_PLANS = '/installment_plans' 
 
 # API base url
 API_BASE_URL = 'https://api.payplug.com'
