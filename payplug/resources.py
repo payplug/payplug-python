@@ -397,7 +397,36 @@ class InstallmentPlan(APIResource, VerifiableAPIResource, ReconstituableAPIResou
     """
     An InstallmentPlans Resource
     """
-    object_type = 'intallment_plan'
+    object_type = 'installment_plan'
+
+    @property
+    def _mapper(self):
+        """
+        Maps payment attributes to their specific types.
+
+        :see :func:`~APIResource._mapper`
+        """
+        return {
+            'hosted_payment': Payment.HostedPayment,
+            'notification': Payment.Notification,
+            'failure': Payment.Failure,
+            'billing': Payment.Billing,
+            'shipping': Payment.Shipping,
+        }
+
+    def _initialize(self, **resource_attributes):
+        """
+        Initialize a resource.
+        Default behavior is just to set all the attributes. You may want to override this.
+
+        :param resource_attributes: The resource attributes
+        """
+
+        schedules = []
+        for schedule in resource_attributes.get('schedule', []):
+            schedules.append(InstallmentPlan.Schedule(**schedule))
+        resource_attributes["schedule"] = schedules
+        super(InstallmentPlan, self)._initialize(**resource_attributes)
 
     def get_consistent_resource(self):
         """
@@ -409,3 +438,9 @@ class InstallmentPlan(APIResource, VerifiableAPIResource, ReconstituableAPIResou
             routes.url(routes.INSTALLMENT_PLANS, resource_id=self.id)
         )
         return InstallmentPlan(**response)
+
+    class Schedule(APIResource):
+        """
+        Schedule information
+        """
+        pass

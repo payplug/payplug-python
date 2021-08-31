@@ -22,7 +22,7 @@ class TestInstallmentPlanRetrieve(TestBase):
 
         assert isinstance(installment_plan, resources.InstallmentPlan)
         assert installment_plan.id == 'installment_plan_id'
-        assert installment_plan.failure['code'] == 'aborted'
+        assert installment_plan.failure.code == 'aborted'
 
 
     def test_create(self):
@@ -30,4 +30,3 @@ class TestInstallmentPlanRetrieve(TestBase):
 
         assert isinstance(installment_plan, resources.InstallmentPlan)
         assert installment_plan.id == 'installment_plan_id'
-    
