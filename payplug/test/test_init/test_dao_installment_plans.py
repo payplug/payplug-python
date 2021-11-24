@@ -18,7 +18,7 @@ class TestInstallmentPlanRetrieve(TestBase):
 
     def test_update(self):
         installment_plan = payplug.InstallmentPlan.retrieve('installment_plan_id')
-        installment_plan = payplug.InstallmentPlan.abort(installment_plan)
+        installment_plan = payplug.InstallmentPlan.abort(installment_plan.id)
 
         assert isinstance(installment_plan, resources.InstallmentPlan)
         assert installment_plan.id == 'installment_plan_id'
