@@ -1,4 +1,4 @@
-Python library for the PayPlug API
+Python library for the Payplug API
 ==================================
 
 .. image:: https://github.com/payplug/payplug-python/workflows/CI/badge.svg
@@ -9,15 +9,15 @@ Python library for the PayPlug API
    :target: https://pypi.python.org/pypi/payplug/
    :alt: PyPi
 
-This is the documentation of PayPlug's Python library. It is designed to help developers to use PayPlug as
+This is the documentation of Payplug's Python library. It is designed to help developers to use Payplug as
 payment solution in a simple, yet robust way.
 
-You can create a PayPlug account at https://www.payplug.com.
+You can create a Payplug account at https://www.payplug.com.
 
 Prerequisites
 -------------
 
-PayPlug's library relies on **python-requests>=1.0.1** to perform HTTP requests and requires **OpenSSL** to secure
+Payplug's library relies on **python-requests>=1.0.1** to perform HTTP requests and requires **OpenSSL** to secure
 transactions. You also need either a **Python 2.6+** or a **Python 3.3+**. The library is known to work with these
 versions, pypy and pypy3. It may work on older versions or other Python implementations without warranty. If you use an
 implementation that is not listed above, do not hesitate to let us known if it worked for you or not, so that we can
@@ -61,7 +61,7 @@ To get started, add the following piece of code to the header of your Python pro
 
     import payplug
 
-If everything runs without errors, congratulations. You installed PayPlug python library! You're ready to create your
+If everything runs without errors, congratulations. You installed Payplug python library! You're ready to create your
 first payment.
 
 Usage
